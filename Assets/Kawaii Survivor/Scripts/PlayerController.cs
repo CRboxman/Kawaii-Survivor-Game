@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    [SerializeField] private MobileJoystick playerJoystick;
     private Rigidbody2D rig;
-    public float speed = 10f;
+
 
     void Start()
     {
@@ -14,8 +15,7 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        float h = Input.GetAxis("Horizontal");
-        float v = Input.GetAxis("Vertical");
-        rig.velocity = new Vector2(h, v) * speed;
+        
+        rig.velocity = playerJoystick.GetMoveVector() ;
     }
 }

@@ -19,12 +19,6 @@ public class MobileJoystick : MonoBehaviour
     {
         HideJoystick();
     }
-
-    private void OnDisable()
-    {
-        HideJoystick();
-    }
-
     // Update is called once per frame
     void Update()
     {
@@ -39,7 +33,15 @@ public class MobileJoystick : MonoBehaviour
 
         ShowJoystick();
     }
-
+    public Vector3 GetMoveVector()
+    {
+        float canvasScale = GetComponentInParent<Canvas>().GetComponent<RectTransform>().localScale.x;
+        return move / canvasScale;
+    }
+    private void OnDisable()
+    {
+        HideJoystick();
+    }
     private void ShowJoystick()
     {
         joystickOutline.gameObject.SetActive(true);
@@ -78,9 +80,5 @@ public class MobileJoystick : MonoBehaviour
             HideJoystick();
     }
 
-    public Vector3 GetMoveVector()
-    {
-        float canvasScale = GetComponentInParent<Canvas>().GetComponent<RectTransform>().localScale.x;
-        return move / canvasScale;
-    }
+
 }
