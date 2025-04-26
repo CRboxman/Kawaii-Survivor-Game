@@ -719,6 +719,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 10090517b0ea82a4fa4ec5dc6d9e630d, type: 3}
+--- !u!114 &1693685579 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1127573995826686683, guid: 10090517b0ea82a4fa4ec5dc6d9e630d, type: 3}
+  m_PrefabInstance: {fileID: 1647762949}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2028635040
 GameObject:
   m_ObjectHideFlags: 0
@@ -848,6 +859,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerJoystick: {fileID: 1298651816}
   moveSpeed: 2
+  et: {fileID: 1693685579}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
