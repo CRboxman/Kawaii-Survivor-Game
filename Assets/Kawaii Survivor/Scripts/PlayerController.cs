@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using static UnityEngine.EventSystems.EventTrigger;
 
-
+[RequireComponent(typeof(Rigidbody2D))]
 public class PlayerController : MonoBehaviour
 {
 
@@ -25,6 +25,6 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        rig.velocity = playerJoystick.GetMoveVector() * moveSpeed * Time.deltaTime;
+        rig.velocity = playerJoystick.GetMoveVector() * moveSpeed * Time.fixedDeltaTime;
     }
 }
