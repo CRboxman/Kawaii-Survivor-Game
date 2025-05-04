@@ -10,7 +10,7 @@ using static UnityEngine.EventSystems.EventTrigger;
 public class PlayerController : MonoBehaviour
 {
 
-    [SerializeField] private MobileJoystick playerJoystick;
+
     [SerializeField]private float moveSpeed = 0.1f;
     private Rigidbody2D rig;
 
@@ -25,6 +25,6 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        rig.velocity = playerJoystick.GetMoveVector() * moveSpeed * Time.fixedDeltaTime;
+        rig.velocity = new Vector2(Input.GetAxis("Horizontal"),Input.GetAxis("Vertical"))* moveSpeed ;
     }
 }
