@@ -27,7 +27,7 @@ public class Enemy : MonoBehaviour
     [Header("Dubug")]
     [SerializeField] private bool isPlayerDetected = false;
 
-    private bool hasSpawn;
+
     private float attackDelay = 0f;
     private float attackTimer = 0f;
     
@@ -74,8 +74,6 @@ public class Enemy : MonoBehaviour
     {
         enemyRender.enabled = true;
         enemySpawnRender.enabled = false;
-
-        hasSpawn = true;
 
         enemyMovement.StorePlayer(player);
     }
