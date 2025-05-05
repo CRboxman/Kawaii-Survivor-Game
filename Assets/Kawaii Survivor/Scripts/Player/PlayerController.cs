@@ -9,18 +9,14 @@ using static UnityEngine.EventSystems.EventTrigger;
 public class PlayerController : MonoBehaviour
 {
 
-
     [SerializeField]private float moveSpeed = 0.1f;
     private Rigidbody2D rig;
-
 
     void Start()
     {
         rig = GetComponent<Rigidbody2D>();
 
     }
-
-
 
     private void FixedUpdate()
     {
