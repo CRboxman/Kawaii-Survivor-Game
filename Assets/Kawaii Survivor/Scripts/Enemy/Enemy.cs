@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 
@@ -13,12 +14,14 @@ public class Enemy : MonoBehaviour
     [SerializeField] private ParticleSystem passAwayParticles;
     [SerializeField] private SpriteRenderer enemyRender;
     [SerializeField] private SpriteRenderer enemySpawnRender;
-
     [Header("Attack")]
     [SerializeField] private float damage = 10.0f;
     [SerializeField] private float attackFrequency = 1f;
     [SerializeField] private float EnemyDetection = 1f;
-
+    [Header("Health")]
+    [SerializeField] private float maxHealth;
+    [SerializeField]private float health;
+    [SerializeField]private TMP_Text healthText;
     [Header("Spawn Related")]
     [SerializeField] private float scaleRateChangeSpeed = 0.3f;
     [SerializeField] private float localScaleRate = 0.3f;
@@ -34,7 +37,8 @@ public class Enemy : MonoBehaviour
 
     void Start()
     {
-        DeBugForTest();
+        health = maxHealth;
+        healthText.text=health.ToString();
         enemyMovement = GetComponent<EnemyMovement>();
         player = GameObject.FindWithTag("Player").GetComponent<Player>();
         if (player == null)
@@ -43,7 +47,7 @@ public class Enemy : MonoBehaviour
         }
         StartSpawnSequence();
         attackDelay = 1f / attackFrequency;
-
+        
     }
 
     // Update is called once per frame
@@ -53,13 +57,6 @@ public class Enemy : MonoBehaviour
             TryAttack();
         else
             WaitForAttack();
-    }
-    private void OnDrawGizmos()
-    {
-        if (!isPlayerDetected)
-            return;
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, EnemyDetection);
     }
     private void StartSpawnSequence()
     {
@@ -93,6 +90,17 @@ public class Enemy : MonoBehaviour
         attackTimer = 0;
         player.ToTakeDamage(damage);
     }
+    public void ToTakeDamage(float Damage)
+    {
+        float realDamage = Mathf.Clamp(Damage, 0f, health);
+        health -= realDamage;
+        healthText.text = health.ToString();
+        if (health <= 0f)
+        {
+            health = 0f;
+            PassAway();
+        }
+    }
     //销毁外加粒子效果触发
     private void PassAway()
     {
@@ -101,19 +109,11 @@ public class Enemy : MonoBehaviour
         passAwayParticles.Play();
         Destroy(gameObject);
     }
-    private void DeBugForTest()
+    private void OnDrawGizmos()
     {
-        if (passAwayParticles == null)
-        {
-            Debug.LogWarning("Warning: 'passAwayParticles' is not assigned in the Inspector.");
-        }
-        if (enemyRender == null)
-        {
-            Debug.LogWarning("Warning: 'enemyRender' is not assigned in the Inspector.");
-        }
-        if (enemySpawnRender == null)
-        {
-            Debug.LogWarning("Warning: 'enemySpawnRender' is not assigned in the Inspector.");
-        }
+        if (!isPlayerDetected)
+            return;
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, EnemyDetection);
     }
 }

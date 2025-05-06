@@ -13,8 +13,7 @@ public class PlayerHealth : MonoBehaviour
     [Header("Settings")]
     [SerializeField] private float maxHealth;
     [SerializeField] private TMP_Text healthText;
-
-    private float health;
+    [SerializeField]private float health;
 
     // Start is called before the first frame update
     void Start()
