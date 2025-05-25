@@ -64,8 +64,8 @@ public class Enemy : MonoBehaviour
         enemySpawnRender.enabled = true;
         Vector3 scaleRate = enemySpawnRender.transform.localScale * localScaleRate;
         LeanTween.scale(enemySpawnRender.gameObject, scaleRate, scaleRateChangeSpeed)
-                                                                     .setLoopPingPong(loops)
-                                                                     .setOnComplete(SpawnSequenceCompleted);
+                           .setLoopPingPong(loops)
+                           .setOnComplete(SpawnSequenceCompleted);
     }
     private void SpawnSequenceCompleted()
     {
