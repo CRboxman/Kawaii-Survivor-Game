@@ -154,7 +154,7 @@ MonoBehaviour:
   enemySpawnRender: {fileID: 7639123547155148984}
   damage: 10
   attackFrequency: 1
-  EnemyDetection: 1
+  EnemyDetection: 0.74
   maxHealth: 60
   health: 0
   healthText: {fileID: 2860945531014541204}

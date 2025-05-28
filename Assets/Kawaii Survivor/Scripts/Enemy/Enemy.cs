@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -14,8 +15,9 @@ public class Enemy : MonoBehaviour
     [SerializeField] private ParticleSystem passAwayParticles;
     [SerializeField] private SpriteRenderer enemyRender;
     [SerializeField] private SpriteRenderer enemySpawnRender;
+    [SerializeField] public static Action<float,Vector2> onDamageTaken;
     [Header("Attack")]
-    [SerializeField] private float damage = 10.0f;
+    [SerializeField] private float damage ;
     [SerializeField] private float attackFrequency = 1f;
     [SerializeField] private float EnemyDetection = 1f;
     [Header("Health")]
@@ -90,11 +92,14 @@ public class Enemy : MonoBehaviour
         attackTimer = 0;
         player.ToTakeDamage(damage);
     }
-    public void ToTakeDamage(float Damage)
+    public void ToTakeDamage( float damage)
     {
-        float realDamage = Mathf.Clamp(Damage, 0f, health);
+        float realDamage = Mathf.Clamp(damage, 0f, health);
         health -= realDamage;
         healthText.text = health.ToString();
+
+        onDamageTaken?.Invoke(damage, transform.position);
+
         if (health <= 0f)
         {
             health = 0f;

@@ -23,6 +23,8 @@ public class Weapon : MonoBehaviour
     [SerializeField] private float aimLerp;
     [Header("Attack")]
     [SerializeField]private float damage;
+    [SerializeField] private float attackDelay;
+    [SerializeField]private float attackTimer;
     [Header("Debug")]
     [SerializeField]private bool detectGizmos;
     [SerializeField]private bool attackDetectGizmos;
@@ -55,6 +57,9 @@ public class Weapon : MonoBehaviour
         state = State.Attack;
 
         damagedEnemies.Clear();
+        // 根据 attackDelay（攻击间隔）调整动画速度，使动画播放时长等于一次攻击的间隔时间。
+        // 攻击越频繁，动画播放越快；保证视觉效果和逻辑攻击同步。
+        animatior.speed = 1f / attackDelay;
     }
     private void Attacking()
     {
@@ -64,6 +69,7 @@ public class Weapon : MonoBehaviour
     {
         state = State.Idle;
         damagedEnemies.Clear();
+        animatior.speed = 1f; // 恢复动画速度为默认值
     }
     private void Attack()
     {
@@ -85,10 +91,26 @@ public class Weapon : MonoBehaviour
         Vector2 targetVector =Vector2.up ;
         if (closestEnemy != null)
         {
+            ManageAttack();
             targetVector = (closestEnemy.transform.position - transform.position).normalized;
         }
         transform.up = Vector2.Lerp(transform.up, targetVector, Time.deltaTime * aimLerp);
+        WaitForAttack();
     }
+
+    private void ManageAttack()
+    {
+        if (attackTimer >= attackDelay)
+        {
+            attackTimer = 0;
+            StartAttack();
+        }
+    }
+    private void WaitForAttack()
+    {
+        attackTimer += Time.deltaTime;
+    }
+
     private Enemy GetClosestEnemy()
     {
         Enemy closestEnemy = null;

@@ -38,6 +38,11 @@ public class SceneObjectManager : EditorWindow
             CreateObject("-----Managers-----");
             CreateObject("");
         }
+        if(GUILayout.Button("Create Effects"))
+        {
+            CreateObject("-----Create Effects-----");
+            CreateObject("");
+        }
     }
 
     private void CreateObject(string name)
