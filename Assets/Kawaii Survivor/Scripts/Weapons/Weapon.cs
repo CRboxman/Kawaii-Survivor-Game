@@ -5,8 +5,17 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
+    private enum State
+    {
+        Idle,
+        Attack
+    }
+    private State state;
+
     [Header("Objects")]
     [SerializeField] private Transform hitDetectionArea;
+    [SerializeField] private Animator animatior;
+    private List<Enemy> damagedEnemies = new List<Enemy>();
     [Header("Settings")]
     [SerializeField] private float range;
     [SerializeField] private float hitRange;
@@ -17,28 +26,59 @@ public class Weapon : MonoBehaviour
     [Header("Debug")]
     [SerializeField]private bool detectGizmos;
     [SerializeField]private bool attackDetectGizmos;
-   
+    
+
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        state = State.Idle;
     }
 
     // Update is called once per frame
     void Update()
     {
-        AutoAim();
+        switch (state)
+        {
+            case State.Idle:
+                AutoAim();
+                break;
+            case State.Attack:
+                Attacking();
+                break;
+        }
+    }
+    [NaughtyAttributes.Button]
+    private void StartAttack()
+    {
+        animatior.Play("Attack");
+        state = State.Attack;
+
+        damagedEnemies.Clear();
+    }
+    private void Attacking()
+    {
         Attack();
     }
-
+    private void StopAttack()
+    {
+        state = State.Idle;
+        damagedEnemies.Clear();
+    }
     private void Attack()
     {
         Collider2D[] enemyColliders = Physics2D.OverlapCircleAll(hitDetectionArea.position, hitRange, layerMask);
         for (int i = 0; i < enemyColliders.Length; i++)
-            enemyColliders[i].GetComponent<Enemy>().ToTakeDamage(damage);
-    }
+        {
+            Enemy enemy = enemyColliders[i].GetComponent<Enemy>();
+            if (!damagedEnemies.Contains(enemy))
+            {
+                enemy.ToTakeDamage(damage);
+                damagedEnemies.Add(enemy);
+            }
 
+        }
+    }
     private void AutoAim()
     {
         Enemy closestEnemy = GetClosestEnemy();
