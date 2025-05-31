@@ -152,6 +152,7 @@ MonoBehaviour:
   passAwayParticles: {fileID: 3032421210411246030}
   enemyRender: {fileID: 9011479723346300344}
   enemySpawnRender: {fileID: 7639123547155148984}
+  enemyCollider: {fileID: 4155052494399695489}
   damage: 10
   attackFrequency: 1
   EnemyDetection: 0.74
@@ -169,7 +170,7 @@ CircleCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4579860033720658776}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Density: 1
   m_Material: {fileID: 0}

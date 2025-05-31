@@ -16,6 +16,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] private SpriteRenderer enemyRender;
     [SerializeField] private SpriteRenderer enemySpawnRender;
     [SerializeField] public static Action<float,Vector2> onDamageTaken;
+    [SerializeField] private Collider2D enemyCollider;
     [Header("Attack")]
     [SerializeField] private float damage ;
     [SerializeField] private float attackFrequency = 1f;
@@ -73,6 +74,8 @@ public class Enemy : MonoBehaviour
     {
         enemyRender.enabled = true;
         enemySpawnRender.enabled = false;
+
+        enemyCollider.enabled = true;
 
         enemyMovement.StorePlayer(player);
     }

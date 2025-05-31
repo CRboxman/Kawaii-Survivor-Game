@@ -16,10 +16,11 @@ public class Weapon : MonoBehaviour
     [SerializeField] private Transform hitDetectionArea;
     [SerializeField] private Animator animatior;
     private List<Enemy> damagedEnemies = new List<Enemy>();
+    [SerializeField]private  BoxCollider2D hitDetectionBoxCollider;
     [Header("Settings")]
     [SerializeField] private float range;
     [SerializeField] private float hitRange;
-    [SerializeField] private LayerMask layerMask;
+    [SerializeField] private LayerMask enemyLayerMask;
     [SerializeField] private float aimLerp;
     [Header("Attack")]
     [SerializeField]private float damage;
@@ -73,7 +74,10 @@ public class Weapon : MonoBehaviour
     }
     private void Attack()
     {
-        Collider2D[] enemyColliders = Physics2D.OverlapCircleAll(hitDetectionArea.position, hitRange, layerMask);
+        Collider2D[] enemyColliders = Physics2D.OverlapBoxAll(hitDetectionArea.position, 
+                                                                                                    hitDetectionBoxCollider.bounds.size,
+                                                                                                    hitDetectionArea.localEulerAngles.z,
+                                                                                                    enemyLayerMask);
         for (int i = 0; i < enemyColliders.Length; i++)
         {
             Enemy enemy = enemyColliders[i].GetComponent<Enemy>();
@@ -91,8 +95,9 @@ public class Weapon : MonoBehaviour
         Vector2 targetVector =Vector2.up ;
         if (closestEnemy != null)
         {
-            ManageAttack();
             targetVector = (closestEnemy.transform.position - transform.position).normalized;
+            transform.up=targetVector;
+            ManageAttack();
         }
         transform.up = Vector2.Lerp(transform.up, targetVector, Time.deltaTime * aimLerp);
         WaitForAttack();
@@ -114,7 +119,7 @@ public class Weapon : MonoBehaviour
     private Enemy GetClosestEnemy()
     {
         Enemy closestEnemy = null;
-        Collider2D[] enemyColliders = Physics2D.OverlapCircleAll(transform.position, range, layerMask);
+        Collider2D[] enemyColliders = Physics2D.OverlapCircleAll(transform.position, range, enemyLayerMask);
         if (enemyColliders.Length <= 0)
             return null;
         float minDistance = range;
