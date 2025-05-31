@@ -155,7 +155,7 @@ MonoBehaviour:
   damage: 10
   attackFrequency: 1
   EnemyDetection: 0.74
-  maxHealth: 60
+  maxHealth: 100
   health: 0
   healthText: {fileID: 2860945531014541204}
   scaleRateChangeSpeed: 0.2
@@ -361,9 +361,9 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingLayerID: 948668401
+  m_SortingLayer: 1
+  m_SortingOrder: 1
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!114 &2860945531014541204
 MonoBehaviour:

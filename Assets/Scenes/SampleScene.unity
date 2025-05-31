@@ -14155,6 +14155,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ghost (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 4579860033720658776, guid: af7fd00e38939e142936addc92916550, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7444064959600541116, guid: af7fd00e38939e142936addc92916550, type: 3}
       propertyPath: m_LocalPosition.x
       value: 10.53
@@ -17171,7 +17175,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hitDetectionArea: {fileID: 226270253}
   animatior: {fileID: 1381706613}
-  range: 5.41
+  range: 5.35
   hitRange: 0.52
   layerMask:
     serializedVersion: 2
@@ -18596,6 +18600,10 @@ PrefabInstance:
     - target: {fileID: 4579860033720658776, guid: af7fd00e38939e142936addc92916550, type: 3}
       propertyPath: m_Name
       value: Ghost (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4579860033720658776, guid: af7fd00e38939e142936addc92916550, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7444064959600541116, guid: af7fd00e38939e142936addc92916550, type: 3}
       propertyPath: m_LocalPosition.x
@@ -20253,25 +20261,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 433651493}
     m_Modifications:
-    - target: {fileID: 4047729074099828545, guid: af7fd00e38939e142936addc92916550, type: 3}
-      propertyPath: maxHealth
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 4047729074099828545, guid: af7fd00e38939e142936addc92916550, type: 3}
-      propertyPath: isPlayerDetected
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4579860033720658776, guid: af7fd00e38939e142936addc92916550, type: 3}
       propertyPath: m_Name
       value: Ghost
-      objectReference: {fileID: 0}
-    - target: {fileID: 4579860033720658776, guid: af7fd00e38939e142936addc92916550, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6617107982175194815, guid: af7fd00e38939e142936addc92916550, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7444064959600541116, guid: af7fd00e38939e142936addc92916550, type: 3}
       propertyPath: m_LocalPosition.x
@@ -20312,10 +20304,6 @@ PrefabInstance:
     - target: {fileID: 7444064959600541116, guid: af7fd00e38939e142936addc92916550, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7969142832627160983, guid: af7fd00e38939e142936addc92916550, type: 3}
-      propertyPath: m_Mesh
-      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
