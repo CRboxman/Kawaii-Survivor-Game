@@ -4,53 +4,50 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-
-[RequireComponent(typeof(EnemyMovement))]
-public class Enemy : MonoBehaviour
+[RequireComponent(typeof(EnemyMovement),typeof(RangedEnemyAttack))]
+public class RangedEnemy : MonoBehaviour
 {
     private EnemyMovement enemyMovement;
+    private RangedEnemyAttack rangedEnemyAttack;
     private Player player;
 
     [Header("Objects")]
     [SerializeField] private ParticleSystem passAwayParticles;
     [SerializeField] private SpriteRenderer enemyRender;
     [SerializeField] private SpriteRenderer enemySpawnRender;
-    [SerializeField] public static Action<float,Vector2> onDamageTaken;
+    [SerializeField] public static Action<float, Vector2> onDamageTaken;
     [SerializeField] private Collider2D enemyCollider;
     [Header("Attack")]
-    [SerializeField] private float damage ;
-    [SerializeField] private float attackFrequency = 1f;
     [SerializeField] private float EnemyDetection = 1f;
     [Header("Health")]
     [SerializeField] private float maxHealth;
-    [SerializeField]private float health;
-    [SerializeField]private TMP_Text healthText;
+    [SerializeField] private float health;
+    [SerializeField] private TMP_Text healthText;
     [Header("Spawn Related")]
     [SerializeField] private float scaleRateChangeSpeed = 0.3f;
     [SerializeField] private float localScaleRate = 0.3f;
-    [SerializeField] private int loops=4;
-
+    [SerializeField] private int loops = 4;
     [Header("Dubug")]
     [SerializeField] private bool isPlayerDetected = false;
 
-
-    private float attackDelay = 0f;
-    private float attackTimer = 0f;
-    
-
+    // Start is called before the first frame update
     void Start()
     {
         health = maxHealth;
-        healthText.text=health.ToString();
+        healthText.text = health.ToString();
         enemyMovement = GetComponent<EnemyMovement>();
+        rangedEnemyAttack = GetComponent<RangedEnemyAttack>();
         player = GameObject.FindWithTag("Player").GetComponent<Player>();
+
+        rangedEnemyAttack.storePlayer(player);
+
         if (player == null)
         {
             Debug.LogError("Player GameObject with tag 'Player' not found in the scene.");
         }
+
         StartSpawnSequence();
-        attackDelay = 1f / attackFrequency;
-        
+
     }
 
     // Update is called once per frame
@@ -58,13 +55,18 @@ public class Enemy : MonoBehaviour
     {
         if (!enemyRender.enabled)
             return;
-        if (attackTimer >= attackDelay)
-            TryAttack();
-        else
-            WaitForAttack();
-
-        enemyMovement.FollowPlayer();
+        ManageAttack();
     }
+
+    private void ManageAttack()
+    {
+        float distanceToPlayer = Vector2.Distance(transform.position, player.transform.position);
+        if (distanceToPlayer > EnemyDetection)
+            enemyMovement.FollowPlayer();
+        else
+            TryAttack(); 
+    }
+
     private void StartSpawnSequence()
     {
         enemyRender.enabled = false;
@@ -83,23 +85,13 @@ public class Enemy : MonoBehaviour
 
         enemyMovement.StorePlayer(player);
     }
-    private void WaitForAttack()
-    {
-        attackTimer += Time.deltaTime;
-    }
+
     private void TryAttack()
     {
-        float distanceToPlayer = Vector2.Distance(transform.position, player.transform.position);
-        if (distanceToPlayer <= EnemyDetection)
-            // ´¥·¢¹¥»÷Âß¼­
-            Attack();
+        rangedEnemyAttack.AutoAim();
     }
-    private void Attack()
-    {
-        attackTimer = 0;
-        player.ToTakeDamage(damage);
-    }
-    public void ToTakeDamage( float damage)
+
+    public void ToTakeDamage(float damage)
     {
         float realDamage = Mathf.Clamp(damage, 0f, health);
         health -= realDamage;

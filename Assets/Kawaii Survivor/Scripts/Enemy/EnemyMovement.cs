@@ -10,14 +10,13 @@ public class EnemyMovement : MonoBehaviour
     [SerializeField] private float moveSpeed = 1f;
     void Update()
     {
-        if(player!=null)
-        FollowPlayer();
+
     }
     public void StorePlayer(Player player)
     {
         this.player = player;
     }
-    private void FollowPlayer()
+    public void FollowPlayer()
     {
         Vector3 dir = (player.transform.position - transform.position).normalized;
         transform.position = Vector3.MoveTowards(transform.position, player.transform.position, moveSpeed * Time.deltaTime);
