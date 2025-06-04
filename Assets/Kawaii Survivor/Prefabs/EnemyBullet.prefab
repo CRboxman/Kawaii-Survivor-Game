@@ -114,7 +114,7 @@ Transform:
   m_GameObject: {fileID: 8500240432079693502}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.46, y: 0.336, z: 0}
+  m_LocalPosition: {x: 4.103674, y: -5.491544, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -197,5 +197,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 758749511437936870}
-  damage: 10
-  bulletSpeed: 5
+  BulletCollider: {fileID: 8488493706554480668}
+  bulletSpeed: 10

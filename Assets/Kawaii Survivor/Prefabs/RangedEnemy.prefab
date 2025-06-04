@@ -138,7 +138,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 917d6a86236eb4a4198786d7c5e97f1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5
+  moveSpeed: 4
 --- !u!58 &7183384845504346437
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -191,13 +191,13 @@ MonoBehaviour:
   enemyRender: {fileID: 9095810235632444571}
   enemySpawnRender: {fileID: 2285330042241199604}
   enemyCollider: {fileID: 7183384845504346437}
-  EnemyDetection: 6.78
+  healthText: {fileID: 5492811642855308911}
   maxHealth: 50
   health: 50
-  healthText: {fileID: 5492811642855308911}
   scaleRateChangeSpeed: 0.3
   localScaleRate: 0.3
   loops: 4
+  EnemyDetection: 5.44
   isPlayerDetected: 1
 --- !u!114 &4601866385082228105
 MonoBehaviour:
@@ -212,8 +212,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shootingPoint: {fileID: 86497754641760939}
-  bulletPrefab: {fileID: 0}
-  damage: 1
+  bulletPrefab: {fileID: 776530526095870009, guid: 5a475c85fb7f9ff40a16e86d823e3307, type: 3}
+  damage: 5
   attackFrequency: 1
   isPlayerDetected: 1
 --- !u!1 &2171018831036908999
@@ -317,7 +317,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: ...
+  m_text: '...
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 96dbcb2895353a24da88e6ddd7b0b8f2, type: 2}
   m_sharedMaterial: {fileID: -1051536056453776857, guid: 96dbcb2895353a24da88e6ddd7b0b8f2, type: 2}
@@ -731,7 +733,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.6197011, g: 0.89433956, b: 0.4302954, a: 1}
+      maxColor: {r: 0.045116495, g: 0.5999999, b: 0.039622553, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -1553,7 +1555,7 @@ ParticleSystem:
         m_Curve:
         - serializedVersion: 3
           time: 0
-          value: 0.8049965
+          value: 0.847662
           inSlope: 0
           outSlope: 0
           tangentMode: 0
@@ -1561,13 +1563,13 @@ ParticleSystem:
           inWeight: 0
           outWeight: 0
         - serializedVersion: 3
-          time: 0.5515736
+          time: 0.7870953
           value: 0
-          inSlope: -2
-          outSlope: -2
+          inSlope: -3.1512747
+          outSlope: -3.1512747
           tangentMode: 0
           weightedMode: 0
-          inWeight: 0
+          inWeight: 0.09893773
           outWeight: 0
         m_PreInfinity: 2
         m_PostInfinity: 2
@@ -3412,7 +3414,7 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     separateAxes: 1
-    frequency: 0.6
+    frequency: 1.43
     damping: 1
     octaves: 1
     octaveMultiplier: 0.5
