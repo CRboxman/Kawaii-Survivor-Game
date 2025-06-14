@@ -3,15 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody2D),typeof(Collider2D))]
+[RequireComponent(typeof(Rigidbody2D), typeof(Collider2D))]
 public class EnemyBullet : MonoBehaviour
 {
     [Header("Objects")]
-    [SerializeField]private Rigidbody2D rb;
-    [SerializeField]private Collider2D BulletCollider;
-        private RangedEnemyAttack rangedEnemyAttack;
+    [SerializeField] private Rigidbody2D rb;
+    [SerializeField] private Collider2D BulletCollider;
+    private RangedEnemyAttack rangedEnemyAttack;
     [Header("Settings")]
-    [SerializeField]private float bulletSpeed;
+    [SerializeField] private float bulletSpeed;
     private float damage;
 
     // Start is called before the first frame update
@@ -23,13 +23,13 @@ public class EnemyBullet : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
-    public void Shoot(float damage,Vector2 direction)
+    public void Shoot(float damage, Vector2 direction)
     {
         this.damage = damage;
         transform.right = direction;
-        rb.velocity = direction * bulletSpeed; 
+        rb.velocity = direction * bulletSpeed;
     }
     private void OnTriggerEnter2D(Collider2D collider)
     {

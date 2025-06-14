@@ -19,16 +19,15 @@ public class Weapon : MonoBehaviour
     [SerializeField]private  BoxCollider2D hitDetectionBoxCollider;
     [Header("Settings")]
     [SerializeField] private float range;
-    [SerializeField] private float hitRange;
     [SerializeField] private LayerMask enemyLayerMask;
-    [SerializeField] private float aimLerp;
+    [SerializeField] protected float aimLerp;
     [Header("Attack")]
-    [SerializeField]private float damage;
-    [SerializeField] private float attackDelay;
-    [SerializeField]private float attackTimer;
+    [SerializeField]protected float damage;
+    [SerializeField] protected float attackDelay;
+    [SerializeField]protected float attackTimer;
     [Header("Debug")]
     [SerializeField]private bool detectGizmos;
-    [SerializeField]private bool attackDetectGizmos;
+
     
 
 
@@ -51,7 +50,7 @@ public class Weapon : MonoBehaviour
                 break;
         }
     }
-    [NaughtyAttributes.Button]
+    //[NaughtyAttributes.Button],现在没必要用了，作为测试
     private void StartAttack()
     {
         animatior.Play("Attack");
@@ -116,7 +115,7 @@ public class Weapon : MonoBehaviour
         attackTimer += Time.deltaTime;
     }
 
-    private Enemy GetClosestEnemy()
+    protected Enemy GetClosestEnemy()
     {
         Enemy closestEnemy = null;
         Collider2D[] enemyColliders = Physics2D.OverlapCircleAll(transform.position, range, enemyLayerMask);
@@ -143,11 +142,6 @@ public class Weapon : MonoBehaviour
         {
             Gizmos.color = Color.blue;
             Gizmos.DrawWireSphere(transform.position, range);
-        }
-        if(attackDetectGizmos)
-        {
-            Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(hitDetectionArea.position, hitRange);
         }
     }
 }

@@ -49,7 +49,7 @@ public class SceneObjectManager : EditorWindow
     {
         GameObject obj = new GameObject(name);
         // 在这里可以继续为这些对象添加默认组件或进行其他初始化
-        obj.transform.SetParent(null); // 你可以调整父子关系
+        obj.transform.SetParent(null); // 可以调整父子关系
         Undo.RegisterCreatedObjectUndo(obj, "Create " + name);  // 支持撤销操作
     }
 }
