@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Pool;
 
 public class RangedEnemyAttack : MonoBehaviour
 {
@@ -10,12 +9,13 @@ public class RangedEnemyAttack : MonoBehaviour
     [SerializeField] private Transform shootingPoint;
     [SerializeField] private EnemyBullet bulletPrefab;
     private Player player;
-    private ObjectPool<EnemyBullet> bulletPool; 
     [Header("Settings")]
     [SerializeField] private float damage;
     [SerializeField] private float attackFrequency = 1f;
+    [SerializeField] private float bulletSpeed;
     private float attackDelay = 0f;
     private float attackTimer = 0f;
+
 
     [Header("Dubug")]
     [SerializeField] private bool isPlayerDetected = false;
@@ -27,33 +27,6 @@ public class RangedEnemyAttack : MonoBehaviour
     {
         attackDelay = 1f / attackFrequency;
         attackTimer = attackDelay;
-        bulletPool = new ObjectPool<EnemyBullet>(
-            CreateBullet,
-            ActionOnGet,
-            ActionOnRelease,
-            ActionOnDestroy
-        );
-    }
-    private EnemyBullet CreateBullet()
-    {
-        EnemyBullet bulletInstance= Instantiate(bulletPrefab, shootingPoint.position, Quaternion.identity);
-        bulletInstance.StoreRangerEnemyAttack(this);
-        return bulletInstance;
-    }
-    private void ActionOnGet(EnemyBullet bullet)
-    {
-        bullet.Reload();
-        bullet.transform.position = shootingPoint.position;
-        bullet.gameObject.SetActive(true);
-        bullet.StartLifetimeTimer();
-    }
-    private void ActionOnRelease(EnemyBullet bullet)
-    {
-        bullet.gameObject.SetActive(false);
-    }
-    private void ActionOnDestroy(EnemyBullet bullet)
-    {
-        Destroy(bullet.gameObject);
     }
 
     // Update is called once per frame
@@ -85,7 +58,7 @@ public class RangedEnemyAttack : MonoBehaviour
         Vector2 direction = (player.GetCenter() - (Vector2)shootingPoint.position).normalized;
         gizmosDirection = direction;
 
-        EnemyBullet bulletInstantce =bulletPool.Get();
+        EnemyBullet bulletInstantce = Instantiate(bulletPrefab, shootingPoint.position, Quaternion.identity);
         bulletInstantce.Shoot(damage, direction);
 
 
@@ -96,10 +69,5 @@ public class RangedEnemyAttack : MonoBehaviour
             return;
         Gizmos.color = Color.white;
         Gizmos.DrawLine(shootingPoint.position,(Vector2) shootingPoint.position+ gizmosDirection*5);
-    }
-
-    public void ReleaseBullet(EnemyBullet enemyBullet)
-    {
-        bulletPool.Release(enemyBullet);
     }
 }

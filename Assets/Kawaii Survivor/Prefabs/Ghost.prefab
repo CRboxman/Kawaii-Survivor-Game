@@ -153,16 +153,16 @@ MonoBehaviour:
   enemyRender: {fileID: 9011479723346300344}
   enemySpawnRender: {fileID: 7639123547155148984}
   enemyCollider: {fileID: 4155052494399695489}
-  healthText: {fileID: 2860945531014541204}
+  damage: 10
+  attackFrequency: 1
+  EnemyDetection: 0.74
   maxHealth: 100
   health: 0
+  healthText: {fileID: 2860945531014541204}
   scaleRateChangeSpeed: 0.2
   localScaleRate: 0.3
   loops: 4
-  EnemyDetection: 0.74
   isPlayerDetected: 1
-  damage: 10
-  attackFrequency: 1
 --- !u!58 &4155052494399695489
 CircleCollider2D:
   m_ObjectHideFlags: 0
