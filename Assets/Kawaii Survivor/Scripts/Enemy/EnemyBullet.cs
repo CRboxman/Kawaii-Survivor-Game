@@ -14,7 +14,7 @@ public class EnemyBullet : MonoBehaviour
     [SerializeField] private float bulletSpeed;
     private float damage;
 
-    // Start is called before the first frame update
+    //开始就延迟5秒进行释放
     private void Awake()
     {
         LeanTween.delayedCall(gameObject, 5, () => rangedEnemyAttack.ReleaseBullet(this));
@@ -25,6 +25,7 @@ public class EnemyBullet : MonoBehaviour
     {
 
     }
+    #region 1. 初始化子弹伤害，方向，速度；    2.碰到玩家对玩家造成伤害并释放敌人子弹
     public void Shoot(float damage, Vector2 direction)
     {
         this.damage = damage;
@@ -43,6 +44,8 @@ public class EnemyBullet : MonoBehaviour
             rangedEnemyAttack.ReleaseBullet(this);
         }
     }
+    #endregion
+
     public void StartLifetimeTimer()
     {
         // 先取消之前的计时器（如果存在）

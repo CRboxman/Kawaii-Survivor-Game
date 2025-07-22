@@ -9,6 +9,8 @@ public class PlayerBullet : MonoBehaviour
     [Header("Objects")]
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private Collider2D BulletCollider;
+    private RangeWeapon rangeWeapon;
+    private Enemy targetEnemy;
     [Header("Settings")]
     [SerializeField] private float bulletSpeed;
     [SerializeField] private LayerMask enemyMask;
@@ -16,7 +18,7 @@ public class PlayerBullet : MonoBehaviour
     // Start is called before the first frame update
     private void Awake()
     {
-        //LeanTween.delayedCall(gameObject, 5, () => rangedEnemyAttack.ReleaseBullet(this));
+        
     }
     // Start is called before the first frame update
     void Start()
@@ -29,21 +31,42 @@ public class PlayerBullet : MonoBehaviour
     {
         
     }
+    public void StorePlayerRangeWeapon(RangeWeapon rangeWeapon)
+    {
+        this.rangeWeapon = rangeWeapon;
+    }
     public void Shoot(float damage, Vector2 direction)
     {
+        Invoke("Release", 1);
         this.damage = damage;
         transform.right = direction;
         rb.velocity = direction * bulletSpeed;
     }
+    public void Reload()
+    {
+        targetEnemy=null;
+
+        rb.velocity = Vector2.zero;
+        BulletCollider.enabled = true;
+    }
     private void OnTriggerEnter2D(Collider2D collider)
     {
+        if (targetEnemy != null)
+            return;
         if (IsInLayerMask(collider.gameObject.layer, enemyMask))
         {
-            Attack(collider.GetComponent<Enemy>());
-            Destroy(gameObject);
+            targetEnemy = collider.GetComponent<Enemy>();
+            CancelInvoke();
+            Attack(targetEnemy);
+            Release();
         }
     }
-
+    private void Release()
+    {
+        if (!gameObject.activeSelf)
+            return;
+        rangeWeapon.ReleaseBullet(this);
+    }
     private void Attack(Enemy enemy)
     {
         enemy.ToTakeDamage(damage);

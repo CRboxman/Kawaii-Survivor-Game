@@ -8,16 +8,16 @@ public class DamageTextManager : MonoBehaviour
 {
 
     [Header("Objects")]
-    [SerializeField] private DamageText damageTextPrefab ;
+    [SerializeField] private DamageText damageTextPrefab;
     private ObjectPool<DamageText> damageTextPool;
+
     private void Awake()
     {
         Enemy.onDamageTaken += EnemyHitCallBack;
     }
-
-    // Start is called before the first frame update
     void Start()
     {
+        //初始化伤害文本对象池
         damageTextPool = new ObjectPool<DamageText>(
             CreateFunction,
             ActionOnGet,
@@ -25,6 +25,7 @@ public class DamageTextManager : MonoBehaviour
             ActionOnDestroy
         );
     }
+             #region 池化伤害文本
     private DamageText CreateFunction()
     {
         return Instantiate(damageTextPrefab, transform);
@@ -41,13 +42,20 @@ public class DamageTextManager : MonoBehaviour
     {
         Destroy(text.gameObject);
     }
+    #endregion
+
     private void OnDestroy()
     {
         Enemy.onDamageTaken -= EnemyHitCallBack;
     }
-    private void EnemyHitCallBack(float damage,Vector2 enemyPos)
+    /// <summary>
+    /// 敌人受到伤害回调函数，进行伤害文本的实例化和播放动画
+    /// </summary>
+    /// <param name="damage"></param>
+    /// <param name="enemyPos"></param>
+    private void EnemyHitCallBack(float damage, Vector2 enemyPos)
     {
-        DamageText damageTextInstance =damageTextPool.Get();
+        DamageText damageTextInstance = damageTextPool.Get();
         Vector3 spawnPosition = enemyPos;
 
         //spawnPosition = Camera.main.WorldToScreenPoint(spawnPosition);

@@ -27,7 +27,7 @@ public abstract class Enemy : MonoBehaviour
     [Header("Dubug")]
     [SerializeField] protected bool isPlayerDetected = false;
 
-    // Start is called before the first frame update
+    //初始化血量，血量文本，获取敌人移动组件和玩家组件，开始生成逻辑
     protected virtual void Start()
     {
         health = maxHealth;
@@ -41,7 +41,7 @@ public abstract class Enemy : MonoBehaviour
         StartSpawnSequence();
     }
 
-    // Update is called once per frame
+    #region 通过判断渲染决定是否可以攻击，生成动画，提供玩家（用于在被继承的类中判断是否可以攻击以及追随），被造成伤害，死亡时的粒子效果
     protected bool CanAttack()
     {
         return enemyRender.enabled;
@@ -86,4 +86,22 @@ public abstract class Enemy : MonoBehaviour
         passAwayParticles.Play();
         Destroy(gameObject);
     }
+    #endregion
+
+
+    #region 测试用，显示攻击检测距离
+    private void OnDrawGizmos()
+    {
+        if (!isPlayerDetected)
+            return;
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, EnemyDetection);
+    }
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, EnemyDetection);
+    }
+    #endregion
+
 }

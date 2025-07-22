@@ -160,7 +160,7 @@ MonoBehaviour:
   localScaleRate: 0.3
   loops: 4
   EnemyDetection: 0.74
-  isPlayerDetected: 1
+  isPlayerDetected: 0
   damage: 10
   attackFrequency: 1
 --- !u!58 &4155052494399695489
