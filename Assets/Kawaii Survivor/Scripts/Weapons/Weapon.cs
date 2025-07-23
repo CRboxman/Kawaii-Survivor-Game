@@ -12,21 +12,21 @@ public abstract class Weapon : MonoBehaviour
     [SerializeField] protected LayerMask enemyLayerMask;
     [SerializeField] protected float aimLerp;
     [Header("Attack")]
-    [SerializeField]protected float damage;
+    [SerializeField] protected float damage;
     [SerializeField] protected float attackDelay;
-    [SerializeField]protected float attackTimer;
+    [SerializeField] protected float attackTimer;
     [Header("Debug")]
-    [SerializeField]protected bool detectGizmos;
+    [SerializeField] protected bool detectGizmos;
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
- 
+
     }
     protected Enemy GetClosestEnemy()
     {
@@ -47,8 +47,20 @@ public abstract class Weapon : MonoBehaviour
                 closestEnemy = enemyChecked;
             }
         }
-            return closestEnemy;
+        return closestEnemy;
     }
+
+    protected float GetDamage(out bool isCriticalHit)
+    {
+        isCriticalHit = false;
+        if (UnityEngine.Random.Range(0, 101) <= 50)
+        {
+            isCriticalHit = true;
+            return damage * 2;
+        }
+        return damage;
+    }
+
     private void OnDrawGizmos()
     {
         if (detectGizmos)
@@ -59,7 +71,7 @@ public abstract class Weapon : MonoBehaviour
     }
     private void OnDrawGizmosSelected()
     {
-            Gizmos.color = Color.blue;
-            Gizmos.DrawWireSphere(transform.position, range);
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(transform.position, range);
     }
 }

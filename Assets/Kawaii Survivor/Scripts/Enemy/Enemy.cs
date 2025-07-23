@@ -10,7 +10,7 @@ public abstract class Enemy : MonoBehaviour
     [SerializeField] protected ParticleSystem passAwayParticles;
     [SerializeField] protected SpriteRenderer enemyRender;
     [SerializeField] protected SpriteRenderer enemySpawnRender;
-    [SerializeField] public static Action<float, Vector2> onDamageTaken;
+    [SerializeField] public static Action<float, Vector2,bool> onDamageTaken;
     [SerializeField] protected Collider2D enemyCollider;
     [SerializeField] protected TMP_Text healthText;
     protected EnemyMovement enemyMovement;
@@ -64,13 +64,13 @@ public abstract class Enemy : MonoBehaviour
 
         enemyMovement.StorePlayer(player);
     }
-    public void ToTakeDamage(float damage)
+    public void ToTakeDamage(float damage, bool isCriticalHit)
     {
         float realDamage = Mathf.Clamp(damage, 0f, health);
         health -= realDamage;
         healthText.text = health.ToString();
 
-        onDamageTaken?.Invoke(damage, transform.position);
+        onDamageTaken?.Invoke(damage, transform.position, isCriticalHit);
 
         if (health <= 0f)
         {

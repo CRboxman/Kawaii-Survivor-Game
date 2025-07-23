@@ -93,7 +93,9 @@ public class MeleeWeapon : Weapon
             Enemy enemy = enemyColliders[i].GetComponent<Enemy>();
             if (!damagedEnemies.Contains(enemy))
             {
-                enemy.ToTakeDamage(damage);
+                float damage = GetDamage(out bool isCriticalHit);
+
+                enemy.ToTakeDamage(damage, isCriticalHit);
                 damagedEnemies.Add(enemy);
             }
 

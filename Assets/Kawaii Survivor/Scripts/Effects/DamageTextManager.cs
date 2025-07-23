@@ -53,14 +53,14 @@ public class DamageTextManager : MonoBehaviour
     /// </summary>
     /// <param name="damage"></param>
     /// <param name="enemyPos"></param>
-    private void EnemyHitCallBack(float damage, Vector2 enemyPos)
+    private void EnemyHitCallBack(float damage, Vector2 enemyPos, bool isCriticalHit)
     {
         DamageText damageTextInstance = damageTextPool.Get();
         Vector3 spawnPosition = enemyPos;
 
         //spawnPosition = Camera.main.WorldToScreenPoint(spawnPosition);
         damageTextInstance.transform.position = spawnPosition;
-        damageTextInstance.PlayAnimate(damage);
+        damageTextInstance.PlayAnimate(damage, isCriticalHit);
         //1秒之后释放（释放即返回到池中，失活那个对象）
         LeanTween.delayedCall(1, () => damageTextPool.Release(damageTextInstance));
     }

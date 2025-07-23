@@ -11,6 +11,7 @@ public class PlayerBullet : MonoBehaviour
     [SerializeField] private Collider2D BulletCollider;
     private RangeWeapon rangeWeapon;
     private Enemy targetEnemy;
+    private bool isCriticalHit;
     [Header("Settings")]
     [SerializeField] private float bulletSpeed;
     [SerializeField] private LayerMask enemyMask;
@@ -35,10 +36,11 @@ public class PlayerBullet : MonoBehaviour
     {
         this.rangeWeapon = rangeWeapon;
     }
-    public void Shoot(float damage, Vector2 direction)
+    public void Shoot(float damage, Vector2 direction,bool isCriticalHit)
     {
         Invoke("Release", 1);
         this.damage = damage;
+        this.isCriticalHit = isCriticalHit;
         transform.right = direction;
         rb.velocity = direction * bulletSpeed;
     }
@@ -69,7 +71,7 @@ public class PlayerBullet : MonoBehaviour
     }
     private void Attack(Enemy enemy)
     {
-        enemy.ToTakeDamage(damage);
+        enemy.ToTakeDamage(damage, isCriticalHit);
     }
 
     private bool IsInLayerMask(int layer, LayerMask enemyMask)

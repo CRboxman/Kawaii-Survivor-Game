@@ -79,9 +79,10 @@ public class RangeWeapon : Weapon
     }
     private void Shoot()
     {
+        float damage = GetDamage(out bool isCriticalHit);
         animatior.Play("GunAttack");
         PlayerBullet bulletInstance = playerBulletPool.Get();
-        bulletInstance.Shoot(damage, transform.up);
+        bulletInstance.Shoot(damage, transform.up, isCriticalHit);
         animatior.speed = 1f / attackDelay;
     }
     #endregion
