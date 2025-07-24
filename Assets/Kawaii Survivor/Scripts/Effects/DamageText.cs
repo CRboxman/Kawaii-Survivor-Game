@@ -24,7 +24,7 @@ public class DamageText : MonoBehaviour
         damageText.text = damage.ToString();
         if (isCriticalHit==true)
         {
-            damageText.color = Color.red; // 红色不透明
+            damageText.color = Color.white; // 红色不透明
         }
         else
         {

@@ -10,11 +10,13 @@ public abstract class Enemy : MonoBehaviour
     [SerializeField] protected ParticleSystem passAwayParticles;
     [SerializeField] protected SpriteRenderer enemyRender;
     [SerializeField] protected SpriteRenderer enemySpawnRender;
-    [SerializeField] public static Action<float, Vector2,bool> onDamageTaken;
     [SerializeField] protected Collider2D enemyCollider;
     [SerializeField] protected TMP_Text healthText;
     protected EnemyMovement enemyMovement;
     protected Player player;
+    public static Action<float, Vector2,bool> onDamageTaken;
+    public static Action<Vector2> onPassAway;
+
     [Header("Health")]
     [SerializeField] protected float maxHealth;
     [SerializeField] protected float health;
@@ -81,6 +83,7 @@ public abstract class Enemy : MonoBehaviour
     //销毁外加粒子效果触发
     private void PassAway()
     {
+        onPassAway?.Invoke(transform.position);
         // Unparent the particles & play them pass
         passAwayParticles.transform.SetParent(null);
         passAwayParticles.Play();
