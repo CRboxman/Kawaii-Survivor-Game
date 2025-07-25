@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
+[RequireComponent(typeof(Collider2D))]
 public abstract class Enemy : MonoBehaviour
 {
     [Header("Objects")]
@@ -91,7 +92,10 @@ public abstract class Enemy : MonoBehaviour
     }
     #endregion
 
-
+    public Vector3 GetCenter(Collider2D collider2D)
+    {
+        return (Vector2)transform.position + collider2D.offset;
+    }
     #region ≤‚ ‘”√£¨œ‘ æπ•ª˜ºÏ≤‚æ‡¿Î
     private void OnDrawGizmos()
     {

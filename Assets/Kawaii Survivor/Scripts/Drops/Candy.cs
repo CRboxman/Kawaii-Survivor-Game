@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Candy : MonoBehaviour
 {
+    [Header("Objects")]
+    [SerializeField] public Animator candyAnimator;
     private bool isCollected;
     // Start is called before the first frame update
     void Start()
@@ -26,18 +28,26 @@ public class Candy : MonoBehaviour
     }
     IEnumerator MoveToPlayer(Player targetPosition)
     {
-        float time = 0;
-        Vector2 spawnPosition=transform.position;
-        Vector2 playerPosition=targetPosition.GetCenter();
-        while (time<1) 
+        Vector2 spawnPosition = transform.position;
+        Vector2 playerPosition = targetPosition.GetCenter();
+        // 播放动画
+        candyAnimator.Play("Collect_Anim");
+        yield return new WaitForSeconds(0.3f); // 等待动画
+        float duration = 1f;
+        float time = 0f;
+        while (time < duration)
         {
-            playerPosition = targetPosition.GetCenter();
-            transform.position=Vector2.Lerp(spawnPosition, playerPosition, time);
+            playerPosition = targetPosition.GetCenter(); // 如果玩家会移动，就每帧更新目标位置
+            float t = time / duration; // 归一化时间 [0,1]
+            transform.position = Vector2.Lerp(spawnPosition, playerPosition, t);
             time += Time.deltaTime;
             yield return null;
         }
+        // 最后强制对齐一次，避免插值小误差
+        transform.position = targetPosition.GetCenter();
         Collected();
     }
+
     private void Collected()
     {
         gameObject.SetActive(false);

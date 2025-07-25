@@ -33,15 +33,17 @@ public class DropManager : MonoBehaviour
 
     private void EnemyPassAwayCallBack(Vector2 enemyPosition)
     {
-        bool shouleSpawnCash = Random.Range(0, 101) <= 30;
+        bool shouleSpawnCash = Random.Range(0, 101) <= 90;
         if (shouleSpawnCash) 
         {
             Cash cashInstance=Instantiate(cashPrefrab, enemyPosition+offset, Quaternion.identity);
+            cashInstance.cashAnimator.Play("fall_Anim");
             cashInstance.transform.SetParent(cashParent);
         }
 
 
         Candy candyInstanse=Instantiate(candyPrefrab,enemyPosition,Quaternion.identity);
+        candyInstanse.candyAnimator.Play("fall_Anim");
         candyInstanse.transform.SetParent(candyParent);
     }
 }

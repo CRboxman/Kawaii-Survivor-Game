@@ -60,7 +60,7 @@ public class RangeWeapon : Weapon
         Vector2 targetVector = Vector2.up;
         if (closestEnemy != null)
         {
-            targetVector = (closestEnemy.transform.position - transform.position).normalized;
+            targetVector = (closestEnemy.GetCenter(closestEnemy.GetComponent<CircleCollider2D>()) - transform.position).normalized;
             ManageShooting();
             transform.up = targetVector;
             return;
