@@ -24,11 +24,11 @@ public class DamageText : MonoBehaviour
         damageText.text = damage.ToString();
         if (isCriticalHit==true)
         {
-            damageText.color = Color.white; // 红色不透明
+            damageText.color = Color.yellow; // 红色不透明
         }
         else
         {
-            damageText.color = Color.yellow; // 白色不透明
+            damageText.color = Color.white; // 白色不透明
         }
 
         DamageTextAnimator.Play("Damage_Text");

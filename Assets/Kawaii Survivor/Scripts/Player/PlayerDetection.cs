@@ -6,7 +6,7 @@ using UnityEngine;
 public class PlayerDetection : MonoBehaviour
 {
     [Header("Objects")]
-    [SerializeField] private Collider2D daveCollider;
+    [SerializeField] private Collider2D collectableCollider;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,17 +20,11 @@ public class PlayerDetection : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collider)
     {
-        if (collider.TryGetComponent(out Candy candy))
+        if (collider.TryGetComponent(out ICollectable collectable))
         {
-            if (!collider.IsTouching(daveCollider))
+            if (!collider.IsTouching(collectableCollider))
                 return;
-            candy.Collect(GetComponent<Player>());
-        }
-        if (collider.TryGetComponent(out Cash cash))
-        {
-            if (!collider.IsTouching(daveCollider))
-                return;
-            cash.Collect(GetComponent<Player>());
+            collectable.Collect(GetComponent<Player>());
         }
     }
 }

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Candy : MonoBehaviour
+public class Candy : MonoBehaviour,ICollectable
 {
     [Header("Objects")]
     [SerializeField] public Animator candyAnimator;
@@ -18,18 +18,18 @@ public class Candy : MonoBehaviour
     {
         
     }
-    public void Collect(Player targetPosition)
+    public void Collect(Player player)
     {
         if (isCollected)
             return;
         isCollected = true;
 
-        StartCoroutine(MoveToPlayer(targetPosition));
+        StartCoroutine(MoveToPlayer(player));
     }
-    IEnumerator MoveToPlayer(Player targetPosition)
+    IEnumerator MoveToPlayer(Player player)
     {
         Vector2 spawnPosition = transform.position;
-        Vector2 playerPosition = targetPosition.GetCenter();
+        Vector2 playerPosition = player.GetCenter();
         // 播放动画
         candyAnimator.Play("Collect_Anim");
         yield return new WaitForSeconds(0.3f); // 等待动画
@@ -37,14 +37,14 @@ public class Candy : MonoBehaviour
         float time = 0f;
         while (time < duration)
         {
-            playerPosition = targetPosition.GetCenter(); // 如果玩家会移动，就每帧更新目标位置
+            playerPosition = player.GetCenter(); // 如果玩家会移动，就每帧更新目标位置
             float t = time / duration; // 归一化时间 [0,1]
             transform.position = Vector2.Lerp(spawnPosition, playerPosition, t);
             time += Time.deltaTime;
             yield return null;
         }
         // 最后强制对齐一次，避免插值小误差
-        transform.position = targetPosition.GetCenter();
+        transform.position = player.GetCenter();
         Collected();
     }
 
