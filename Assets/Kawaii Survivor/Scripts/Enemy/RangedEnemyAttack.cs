@@ -67,7 +67,6 @@ public class RangedEnemyAttack : MonoBehaviour
     }
     #endregion
 
-    //
     public void storePlayer(Player player)
     {
         this.player = player;

@@ -83,7 +83,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca63061337daa2f42bb6227d3af56a46, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cashAnimator: {fileID: 1655039551015679393}
+  animator: {fileID: 1655039551015679393}
 --- !u!95 &1655039551015679393
 Animator:
   serializedVersion: 7

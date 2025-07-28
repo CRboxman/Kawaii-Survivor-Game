@@ -83,7 +83,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3673cd3c66e2b24bb1b75382bc025c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  candyAnimator: {fileID: 8115117956623972962}
+  animator: {fileID: 8115117956623972962}
 --- !u!95 &8115117956623972962
 Animator:
   serializedVersion: 7
