@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8856041954086082422}
-  - component: {fileID: 9096325640001022183}
-  - component: {fileID: 7528849181988505711}
-  - component: {fileID: 8115117956623972962}
+  - component: {fileID: 5304973908972469003}
+  - component: {fileID: 8988370616898001458}
+  - component: {fileID: 3309785700090123662}
   m_Layer: 0
   m_Name: Treasure
   m_TagString: Untagged
@@ -35,8 +35,8 @@ Transform:
   - {fileID: 4969981476331354642}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!58 &9096325640001022183
-CircleCollider2D:
+--- !u!61 &5304973908972469003
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -69,9 +69,19 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
-  m_Radius: 0.18
---- !u!114 &7528849181988505711
+  m_Offset: {x: 0, y: 0.5177345}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 1, y: 1.0141873}
+  m_EdgeRadius: 0
+--- !u!114 &8988370616898001458
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -80,11 +90,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 95515372743926371}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e3673cd3c66e2b24bb1b75382bc025c5, type: 3}
+  m_Script: {fileID: 11500000, guid: 70832f82ced6bc74c8c9aac5ce09cd1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 8115117956623972962}
---- !u!95 &8115117956623972962
+  treasureAnimator: {fileID: 3309785700090123662}
+--- !u!95 &3309785700090123662
 Animator:
   serializedVersion: 7
   m_ObjectHideFlags: 0
@@ -94,7 +104,7 @@ Animator:
   m_GameObject: {fileID: 95515372743926371}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: e5bd233ae898fe147a006d869ae1ca51, type: 2}
+  m_Controller: {fileID: 9100000, guid: 7a55768b8780e8b4d86aa79f047545a9, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -191,4 +201,4 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
-  m_SpriteSortPoint: 0
+  m_SpriteSortPoint: 1

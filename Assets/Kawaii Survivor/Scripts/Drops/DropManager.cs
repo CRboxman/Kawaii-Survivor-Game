@@ -9,11 +9,16 @@ public class DropManager : MonoBehaviour
     [Header("Objects")]
     [SerializeField] private Candy candyPrefrab;
     [SerializeField] private Cash cashPrefrab;
+    [SerializeField] private Treasure treasurePrefrab;
     [SerializeField] private Transform candyParent;
     [SerializeField] private Transform cashParent;
+    [SerializeField]private Vector2 offset_1 = new Vector2(0, 0.5f);
+    [SerializeField]private Vector2 offset_2 = new Vector2(0, 0.5f);
+    [Header("Settings")]
+    [SerializeField][Range(0,100)]private float spawnCashProbability = 0.9f; //现金掉落概率
+    [SerializeField][Range(0, 100)] private float spawnTreasureProbability = 0.4f; //宝箱掉落概率
     private ObjectPool<Candy> candyPool;
     private ObjectPool<Cash> cashPool;
-    private Vector2 offset = new Vector2(0, 0.5f);
     private void Awake()
     {
         Enemy.onPassAway += EnemyPassAwayCallBack;
@@ -71,19 +76,33 @@ public class DropManager : MonoBehaviour
     /// <param name="enemyPosition"></param>
     private void EnemyPassAwayCallBack(Vector2 enemyPosition)
     {
-        bool shouleSpawnCash = Random.Range(0, 101) <= 90;
+        //判断金币掉落的概率，并生成现金掉落物
+        bool shouleSpawnCash = Random.Range(0, 101) <= spawnCashProbability;
         if (shouleSpawnCash)
         {
             Cash cashInstance = cashPool.Get();
-            cashInstance.transform.position = enemyPosition + (Vector2)offset;
+            cashInstance.transform.position = enemyPosition + offset_1;
             cashInstance.animator.Play("fall_Anim");
             cashInstance.transform.SetParent(cashParent);
         }
-
-
+        //生成糖果掉落物
         Candy candyInstanse = candyPool.Get();
         candyInstanse.transform.position = enemyPosition ;
         candyInstanse.animator.Play("fall_Anim");
         candyInstanse.transform.SetParent(candyParent);
+        //生成宝箱
+        DropTreasure(enemyPosition);
+    }
+
+    private void DropTreasure(Vector2 enemyPosition)
+    {
+        //生成宝箱
+        bool shouleSpawnTreasure = Random.Range(0, 101) <= spawnTreasureProbability;
+        if (shouleSpawnTreasure)
+        {
+            Treasure treasureInstanse=Instantiate(treasurePrefrab,transform);
+            treasureInstanse.transform.position = enemyPosition + offset_1+offset_2;
+            treasureInstanse.treasureAnimator.Play("fall_Anim");
+        }
     }
 }
