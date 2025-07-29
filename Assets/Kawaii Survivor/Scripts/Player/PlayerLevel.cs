@@ -19,6 +19,7 @@ public class PlayerLevel : MonoBehaviour
     {
         Candy.onCollected += AddXp; // 订阅糖果收集事件
         levelText.text = $"Level\t{level}\t ({currentXp}/{requireXp})";
+        levelSlider.value = (float)currentXp / requireXp;
     }
 
     // Update is called once per frame
