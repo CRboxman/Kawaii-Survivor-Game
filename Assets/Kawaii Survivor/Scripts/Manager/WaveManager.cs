@@ -10,55 +10,111 @@ public class WaveManager : MonoBehaviour
     [SerializeField] private float waveDuration = 5f;
     [Header("Objects")]
     [SerializeField] private Transform enemyParent;
+    [SerializeField]private Player player;
+    [Space()]
     [SerializeField] public Wave[] waves;
-    private float timer;
-    private List<float> localTimeCounter = new List<float>();
+    private float timer;// 计时器，用于记录当前波次的时间
+    private int currentWaveIndex = 0;// 当前波次的编号
+    private List<int> currentWaveEnemysSpawnEnemyCounter = new List<int>();
     void Start()
     {
-        Wave currentWave = waves[0]; // 目前只用第一个 wave
-        for (int i = 0; i < currentWave.enemies.Count; i++)
-        {
-            localTimeCounter.Add(1f);
-        }
+        currentWaveEnemysSpawnEnemyCounter.Add(0);//当前波的第一个波次的敌人生成计数器，初始值为0
     }
 
     void Update()
     {
+        if (currentWaveIndex >= waves.Length)
+            return;
+
+        timer += Time.deltaTime;
+
         if (timer < waveDuration)
         {
             ManageCurrentWave();
         }
-    }
-
-    private void ManageCurrentWave()
-    {
-        Wave currentWave = waves[0];
-        for (int i = 0; i < currentWave.enemies.Count; i++)
+        else
         {
-            WaveEnemy enemy = currentWave.enemies[i];
-            float startTime = enemy.spawnTimeStartToEnd.x / 100 * waveDuration;
-            float endTime = enemy.spawnTimeStartToEnd.y / 100 * waveDuration;
+            EndWave(currentWaveIndex);
+            currentWaveIndex++;
 
-            if (timer < startTime || timer > endTime)
-                continue;
-
-            float spawnTime = timer - startTime;
-            float spawnDelay = 1f / enemy.spawnFrequency;
-
-            if (spawnTime / spawnDelay > localTimeCounter[i])
+            if (currentWaveIndex < waves.Length)
             {
-                Instantiate(enemy.enemyPrefab, Vector3.zero, Quaternion.identity, enemyParent);
-                localTimeCounter[i]++;
+                StartWave(currentWaveIndex);
             }
         }
-        timer += Time.deltaTime; 
+    }
+    private void StartWave(int waveIndex)
+    {
+        timer = 0f;
+        currentWaveEnemysSpawnEnemyCounter.Clear();
+
+        Wave wave = waves[waveIndex];
+        for (int i = 0; i < wave.waveEnemys.Count; i++)
+        {
+            currentWaveEnemysSpawnEnemyCounter.Add(0);
+        }
+
+        Debug.Log($"[WaveManager] Wave {waveIndex} Started: {wave.name}");
+    }
+
+    private void EndWave(int waveIndex)
+    {
+        KillAllEnemys(enemyParent);
+        Debug.Log($"[WaveManager] Wave {waveIndex} Ended.");
+    }
+    private void ManageCurrentWave()
+    {
+        Wave currentWave = waves[currentWaveIndex];
+        while (currentWaveEnemysSpawnEnemyCounter.Count < currentWave.waveEnemys.Count)
+        {
+            currentWaveEnemysSpawnEnemyCounter.Add(0);// 如果当前波次的敌人生成计数器数量小于当前波次的敌人数量，则添加一个新的计数器
+        }
+        for (int i = 0; i < currentWave.waveEnemys.Count; i++)
+        {
+            WaveEnemy enemy = currentWave.waveEnemys[i];// 获取当前波次的当前这个敌人的信息
+            float startTime = enemy.spawnTimeStartToEnd.x / 100 * waveDuration;// 将百分比转换为实际开始生成时的时间
+            float endTime = enemy.spawnTimeStartToEnd.y / 100 * waveDuration;// 将百分比转换为实际结束生成时的时间
+            // 如果当前计时器不在这个敌人生成的时间范围内，则跳过
+            if (timer < startTime || timer > endTime)
+                continue;
+            //(当前敌人生成时的局部计时器)当前波的计时器减去开始生成时间，得到当前敌人已经开始开始生成时的时间
+            float hasSpawnTime = timer - startTime;
+            float spawnDelay = 1f / enemy.spawnFrequency;// 计算当前敌人生成的间隔时间，频率越高，攻击间隔越短
+            int shouldSpawnCount = Mathf.FloorToInt(hasSpawnTime / spawnDelay);
+            if (shouldSpawnCount > currentWaveEnemysSpawnEnemyCounter[i])
+            {
+                // 每次只生成一次
+                Instantiate(enemy.enemyPrefab, GetSpawnPosition(), Quaternion.identity, enemyParent);
+                currentWaveEnemysSpawnEnemyCounter[i]++;
+            }
+        }
+    }
+    private Vector2 GetSpawnPosition()
+    {
+        Vector2 direction = UnityEngine.Random.onUnitSphere;
+        Vector2 offset = direction.normalized * UnityEngine.Random.Range(10, 17);
+        Vector2 targetPosition=(Vector2)player.transform.position+offset;
+
+        targetPosition.x = Mathf.Clamp(targetPosition.x, -28, 28);
+        targetPosition.y=Mathf.Clamp(targetPosition.y, -16, 7);
+
+        return targetPosition;
+    }
+    private void KillAllEnemys(Transform parentTransform)
+    {
+        while(parentTransform.childCount>0)
+        {
+            Transform child = parentTransform.GetChild(0);
+            child.SetParent(null);
+            Destroy(child.gameObject);
+        }
     }
 }
-    [System.Serializable]
+[System.Serializable]
 public struct Wave
 {
     public string name;
-    public List<WaveEnemy> enemies;
+    public List<WaveEnemy> waveEnemys;
 }
 [System.Serializable]
 public struct WaveEnemy

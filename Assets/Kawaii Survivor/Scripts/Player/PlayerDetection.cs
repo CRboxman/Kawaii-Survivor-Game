@@ -6,7 +6,7 @@ using UnityEngine;
 public class PlayerDetection : MonoBehaviour
 {
     [Header("Objects")]
-    [SerializeField] private Collider2D collectableCollider;
+    [SerializeField] [Tooltip("去子对象上找检测碰撞，改范围")]private Collider2D collectableCollider;
     // Start is called before the first frame update
     void Start()
     {
