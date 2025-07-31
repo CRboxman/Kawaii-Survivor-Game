@@ -4,6 +4,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+[RequireComponent(typeof(WaveManagerUI))]
 public class WaveManager : MonoBehaviour
 {
     [Header("Settings")]
@@ -13,12 +15,17 @@ public class WaveManager : MonoBehaviour
     [SerializeField]private Player player;
     [Space()]
     [SerializeField] public Wave[] waves;
+    private WaveManagerUI waveManagerUI;
     private float timer;// 计时器，用于记录当前波次的时间
     private int currentWaveIndex = 0;// 当前波次的编号
     private List<int> currentWaveEnemysSpawnEnemyCounter = new List<int>();
+    private void Awake()
+    {
+        waveManagerUI = GetComponent<WaveManagerUI>();
+    }
     void Start()
     {
-        currentWaveEnemysSpawnEnemyCounter.Add(0);//当前波的第一个波次的敌人生成计数器，初始值为0
+        StartWave(currentWaveIndex);
     }
 
     void Update()
@@ -31,6 +38,8 @@ public class WaveManager : MonoBehaviour
         if (timer < waveDuration)
         {
             ManageCurrentWave();
+            string timerString = ((int)(waveDuration - timer)).ToString();
+            waveManagerUI.UpdateWaveTimeText(timerString);
         }
         else
         {
@@ -48,6 +57,8 @@ public class WaveManager : MonoBehaviour
         timer = 0f;
         currentWaveEnemysSpawnEnemyCounter.Clear();
 
+        waveManagerUI.UpdateWaveText($"Wave {waveIndex + 1}/{waves.Length} - {waves[waveIndex].name}");
+
         Wave wave = waves[waveIndex];
         for (int i = 0; i < wave.waveEnemys.Count; i++)
         {
@@ -60,15 +71,12 @@ public class WaveManager : MonoBehaviour
     private void EndWave(int waveIndex)
     {
         KillAllEnemys(enemyParent);
-        Debug.Log($"[WaveManager] Wave {waveIndex} Ended.");
+        waveManagerUI.UpdateWaveText($"Wave {waveIndex + 1}/{waves.Length} - {waves[waveIndex].name} Ended");
+        Debug.Log($"[WaveManager] Wave(waveIndex): {waveIndex} Ended.");
     }
     private void ManageCurrentWave()
     {
         Wave currentWave = waves[currentWaveIndex];
-        while (currentWaveEnemysSpawnEnemyCounter.Count < currentWave.waveEnemys.Count)
-        {
-            currentWaveEnemysSpawnEnemyCounter.Add(0);// 如果当前波次的敌人生成计数器数量小于当前波次的敌人数量，则添加一个新的计数器
-        }
         for (int i = 0; i < currentWave.waveEnemys.Count; i++)
         {
             WaveEnemy enemy = currentWave.waveEnemys[i];// 获取当前波次的当前这个敌人的信息
