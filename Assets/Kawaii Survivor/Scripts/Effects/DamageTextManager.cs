@@ -58,6 +58,9 @@ public class DamageTextManager : MonoBehaviour
         DamageText damageTextInstance = damageTextPool.Get();
         Vector3 spawnPosition = enemyPos;
 
+        spawnPosition.x += UnityEngine.Random.Range(0, 0.5f);
+        spawnPosition.y += UnityEngine.Random.Range(0, 0.5f);
+
         //spawnPosition = Camera.main.WorldToScreenPoint(spawnPosition);
         damageTextInstance.transform.position = spawnPosition;
         damageTextInstance.PlayAnimate(damage, isCriticalHit);

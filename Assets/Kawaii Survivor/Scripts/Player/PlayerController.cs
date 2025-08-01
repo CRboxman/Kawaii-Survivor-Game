@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField]private float moveSpeed = 0.1f;
     private Rigidbody2D rig;
+    public bool canMove=false;
 
     void Start()
     {
@@ -20,6 +21,8 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (!canMove)
+            return;
         rig.velocity = new Vector2(Input.GetAxis("Horizontal"),Input.GetAxis("Vertical"))* moveSpeed ;
     }
 }

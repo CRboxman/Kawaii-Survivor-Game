@@ -14,6 +14,7 @@ public class PlayerLevel : MonoBehaviour
     [SerializeField] private int requireXp;
     [SerializeField] private int currentXp;
     [SerializeField] private int level;
+    [SerializeField] private int levelsEarnThisWave;
     // Start is called before the first frame update
     void Start()
     {
@@ -49,7 +50,22 @@ public class PlayerLevel : MonoBehaviour
     private void LevelUp()
     {
         level++;
-        currentXp=0;
+        levelsEarnThisWave++;
+        currentXp =0;
         updateRequireXP();
+    }
+
+   public bool HasLevelUp()
+    {
+        //Debug.Log($"Levels Earn This Wave: {levelsEarnThisWave}");
+        if (levelsEarnThisWave > 0)
+        {
+            levelsEarnThisWave--;
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 }

@@ -6,18 +6,19 @@ using UnityEngine;
 
 
 [RequireComponent(typeof(WaveManagerUI))]
-public class WaveManager : MonoBehaviour
+public class WaveManager : MonoBehaviour, IGameStateListener
 {
     [Header("Settings")]
     [SerializeField] private float waveDuration = 5f;
     [Header("Objects")]
     [SerializeField] private Transform enemyParent;
-    [SerializeField]private Player player;
+    [SerializeField] private Player player;
     [Space()]
     [SerializeField] public Wave[] waves;
     private WaveManagerUI waveManagerUI;
-    private float timer;// 计时器，用于记录当前波次的时间
+    private float timer = 0;// 计时器，用于记录当前波次的时间
     private int currentWaveIndex = 0;// 当前波次的编号
+    private bool isWaveStarted = false;// 是否开始了当前波次
     private List<int> currentWaveEnemysSpawnEnemyCounter = new List<int>();
     private void Awake()
     {
@@ -25,11 +26,14 @@ public class WaveManager : MonoBehaviour
     }
     void Start()
     {
-        StartWave(currentWaveIndex);
+
     }
 
     void Update()
     {
+        if(!isWaveStarted)
+            return;
+
         if (currentWaveIndex >= waves.Length)
             return;
 
@@ -37,6 +41,7 @@ public class WaveManager : MonoBehaviour
 
         if (timer < waveDuration)
         {
+
             ManageCurrentWave();
             string timerString = ((int)(waveDuration - timer)).ToString();
             waveManagerUI.UpdateWaveTimeText(timerString);
@@ -45,11 +50,6 @@ public class WaveManager : MonoBehaviour
         {
             EndWave(currentWaveIndex);
             currentWaveIndex++;
-
-            if (currentWaveIndex < waves.Length)
-            {
-                StartWave(currentWaveIndex);
-            }
         }
     }
     private void StartWave(int waveIndex)
@@ -64,15 +64,16 @@ public class WaveManager : MonoBehaviour
         {
             currentWaveEnemysSpawnEnemyCounter.Add(0);
         }
-
-        Debug.Log($"[WaveManager] Wave {waveIndex} Started: {wave.name}");
+        isWaveStarted= true;
+        //Debug.Log($"[WaveManager]Start!!!\n WaveStart(waveIndex):  {waveIndex} Started(Wave): {wave.name}");
     }
 
     private void EndWave(int waveIndex)
     {
         KillAllEnemys(enemyParent);
         waveManagerUI.UpdateWaveText($"Wave {waveIndex + 1}/{waves.Length} - {waves[waveIndex].name} Ended");
-        Debug.Log($"[WaveManager] Wave(waveIndex): {waveIndex} Ended.");
+        //Debug.Log($"[WaveManager]END!!\n WaveStart(waveIndex): {waveIndex} Ended.");
+        GameManager.instance.WaveCompletedCallBack();
     }
     private void ManageCurrentWave()
     {
@@ -101,20 +102,56 @@ public class WaveManager : MonoBehaviour
     {
         Vector2 direction = UnityEngine.Random.onUnitSphere;
         Vector2 offset = direction.normalized * UnityEngine.Random.Range(10, 17);
-        Vector2 targetPosition=(Vector2)player.transform.position+offset;
+        Vector2 targetPosition = (Vector2)player.transform.position + offset;
 
         targetPosition.x = Mathf.Clamp(targetPosition.x, -28, 28);
-        targetPosition.y=Mathf.Clamp(targetPosition.y, -16, 7);
+        targetPosition.y = Mathf.Clamp(targetPosition.y, -16, 7);
 
         return targetPosition;
     }
     private void KillAllEnemys(Transform parentTransform)
     {
-        while(parentTransform.childCount>0)
+        while (parentTransform.childCount > 0)
         {
             Transform child = parentTransform.GetChild(0);
             child.SetParent(null);
             Destroy(child.gameObject);
+        }
+    }
+
+    public void GameStateChangedCallBack(GameState gameState)
+    {
+        switch (gameState)
+        {
+            case GameState.Menu:
+                // 在菜单状态下，停止所有波次的计时器
+                //timer = 0f;
+                //currentWaveIndex = 0;
+                //waveManagerUI.UpdateWaveText("Menu");
+                //KillAllEnemys(enemyParent);
+                Debug.Log("在Menu状态下，等待点击按钮，来让状态为Game，StartWave才开始波次");
+                break;
+            case GameState.Game:
+                // 在游戏状态下，开始第一波
+                player.CanMove(true);
+                if (!isWaveStarted && currentWaveIndex < waves.Length)
+                {
+                    StartWave(currentWaveIndex);
+                    Debug.Log("在Game状态下，开始波次（索引） " + currentWaveIndex);
+                }
+                break;
+            case GameState.WaveTransition:
+                // 在波次状态下，继续当前波次
+                isWaveStarted = false;
+                LeanTween.delayedCall(1.5f, () => player.CanMove(false));
+                Debug.Log("在WaveTransition状态下，无法移动，波次停止，等待操作");
+                break;
+            case GameState.Shop:
+                // 在商店状态下，暂停当前波次
+                isWaveStarted = false;
+                LeanTween.delayedCall(1.5f, () => player.CanMove(false));
+                Debug.Log(" 在Shop状态下，无法移动，波次停止，等待操作");
+                break;
         }
     }
 }
