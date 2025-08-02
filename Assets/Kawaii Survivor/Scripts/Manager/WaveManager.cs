@@ -143,13 +143,13 @@ public class WaveManager : MonoBehaviour, IGameStateListener
             case GameState.WaveTransition:
                 // 在波次状态下，继续当前波次
                 isWaveStarted = false;
-                LeanTween.delayedCall(1.5f, () => player.CanMove(false));
+                player.CanMove(false);
                 Debug.Log("在WaveTransition状态下，无法移动，波次停止，等待操作");
                 break;
             case GameState.Shop:
                 // 在商店状态下，暂停当前波次
                 isWaveStarted = false;
-                LeanTween.delayedCall(1.5f, () => player.CanMove(false));
+                 player.CanMove(false);
                 Debug.Log(" 在Shop状态下，无法移动，波次停止，等待操作");
                 break;
         }
