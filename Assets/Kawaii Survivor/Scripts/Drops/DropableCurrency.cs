@@ -1,6 +1,9 @@
 using System.Collections;
 using UnityEngine;
 
+/// <summary>
+/// 可以被玩家收集的货币类，向玩家移动，留下了动画和收集逻辑的抽象方法供子类实现。
+/// </summary>
 public abstract class DropableCurrency : MonoBehaviour, ICollectable
 {
     [Header("Objects")]

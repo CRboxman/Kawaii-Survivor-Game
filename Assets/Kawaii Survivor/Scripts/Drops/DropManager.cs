@@ -4,6 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Pool;
 using Random = UnityEngine.Random;
+/// <summary>
+/// 在这里订阅掉落物的收集事件，管理掉落物的生成和池化
+/// </summary>
 public class DropManager : MonoBehaviour
 {
     [Header("Objects")]
@@ -71,7 +74,7 @@ public class DropManager : MonoBehaviour
     public void ReleaseCandy(Candy candy)    =>candyPool.Release(candy);
     public void ReleaseCash(Cash cash)          => cashPool.Release(cash);
     /// <summary>
-    /// 敌人死亡时的回调函数，负责生成糖果和现金掉落物，并播放动画。
+    /// 敌人死亡时的回调函数，负责生成糖果和现金等等掉落物，并播放动画。
     /// </summary>
     /// <param name="enemyPosition"></param>
     private void EnemyPassAwayCallBack(Vector2 enemyPosition)

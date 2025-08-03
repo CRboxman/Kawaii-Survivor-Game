@@ -4,7 +4,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
+/// <summary>
+/// 管理波次的生成和敌人的生成，留有GameStateChangedCallBack，当触发游戏状态改变时，调用此方法来处理波次的开始和玩家的移动
+/// </summary>
 [RequireComponent(typeof(WaveManagerUI))]
 public class WaveManager : MonoBehaviour, IGameStateListener
 {
@@ -123,7 +125,7 @@ public class WaveManager : MonoBehaviour, IGameStateListener
     {
         switch (gameState)
         {
-            case GameState.Menu:
+            case GameState.MENU:
                 // 在菜单状态下，停止所有波次的计时器
                 //timer = 0f;
                 //currentWaveIndex = 0;
@@ -131,7 +133,7 @@ public class WaveManager : MonoBehaviour, IGameStateListener
                 //KillAllEnemys(enemyParent);
                 Debug.Log("在Menu状态下，等待点击按钮，来让状态为Game，StartWave才开始波次");
                 break;
-            case GameState.Game:
+            case GameState.GAME:
                 // 在游戏状态下，开始第一波
                 player.CanMove(true);
                 if (!isWaveStarted && currentWaveIndex < waves.Length)
@@ -140,17 +142,29 @@ public class WaveManager : MonoBehaviour, IGameStateListener
                     Debug.Log("在Game状态下，开始波次（索引） " + currentWaveIndex);
                 }
                 break;
-            case GameState.WaveTransition:
+            case GameState.WAVETRANSITION:
                 // 在波次状态下，继续当前波次
                 isWaveStarted = false;
                 player.CanMove(false);
                 Debug.Log("在WaveTransition状态下，无法移动，波次停止，等待操作");
                 break;
-            case GameState.Shop:
+            case GameState.SHOP:
                 // 在商店状态下，暂停当前波次
                 isWaveStarted = false;
                  player.CanMove(false);
                 Debug.Log(" 在Shop状态下，无法移动，波次停止，等待操作");
+                break;
+            case GameState.GAMEOVER:
+                // 在游戏结束状态下，停止
+                isWaveStarted = false;
+                player.CanMove(false);
+                Debug.Log("在GameOver状态下，无法移动，波次停止，等待操作，或者几秒后自动重新加载");
+                break;
+            case GameState.WEAPON_SELECT:
+                // 在武器选择状态下，暂停当前波次
+                isWaveStarted = false;
+                player.CanMove(false);
+                Debug.Log("在WeaponSelect状态下，无法移动，波次停止，等待操作");
                 break;
         }
     }
