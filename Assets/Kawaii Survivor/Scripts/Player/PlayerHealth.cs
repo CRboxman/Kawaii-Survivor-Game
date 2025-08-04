@@ -5,20 +5,20 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerHealth : MonoBehaviour
+public class PlayerHealth : MonoBehaviour,IPlayerStatesDependency
 {
     [Header("Objects")]
     [SerializeField] private Slider healthSlider;
     [Header("Settings")]
-    [SerializeField] private float maxHealth;
     [SerializeField] private TMP_Text healthText;
+    [SerializeField] private float baseMaxHealth;
+    [SerializeField] private float maxHealth;
     [SerializeField]private float health;
 
     // Start is called before the first frame update
     void Start()
     {
-        health = maxHealth;
-        UpdateUi();
+
     }
     // Update is called once per frame
     void Update()
@@ -45,5 +45,15 @@ public class PlayerHealth : MonoBehaviour
         float healthPercentage = health / maxHealth;
         healthSlider.value = healthPercentage;
         healthText.text = $"{health} / {maxHealth}";
+    }
+
+    public void UpdateStats(PlayerStateManager playerStateManager)
+    {
+        float addedHealth = playerStateManager.GetPlayerStateValue(PlayerState.MaxHealth);
+        maxHealth = baseMaxHealth + addedHealth;
+        maxHealth=Mathf.Max(maxHealth, 1f); // 确保最大生命值至少为1
+
+        health = maxHealth;
+        UpdateUi();
     }
 }

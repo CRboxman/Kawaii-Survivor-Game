@@ -25,7 +25,7 @@ public enum PlayerState
 }
 public static class Enums
 {
-    public static string GetOlayerStateName(PlayerState gameState)
+    public static string GetPlayerStateName(PlayerState gameState)
     {
         string stateName = "";
         string stateNameString= gameState.ToString();

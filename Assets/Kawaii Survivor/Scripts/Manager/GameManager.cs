@@ -57,10 +57,4 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(0);
     }
 }
-/// <summary>
-/// 这个接口用于监听游戏状态的变化，GameStateChangedCallBack由GameManager提供的方法或者回合结束自动调用
-/// </summary>
-public interface IGameStateListener
-{
-    void GameStateChangedCallBack(GameState gameState);
-}
+

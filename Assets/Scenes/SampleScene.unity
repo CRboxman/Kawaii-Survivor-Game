@@ -7945,6 +7945,11 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 1
+--- !u!1 &469793112 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 833822575238241502, guid: 0c99ffdaf42abed4b99d0260258eabe8, type: 3}
+  m_PrefabInstance: {fileID: 2054266554}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &475261168
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13744,6 +13749,7 @@ Transform:
   - {fileID: 1241720282}
   - {fileID: 1982282112}
   - {fileID: 1838929500}
+  - {fileID: 1567263848}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1117485245
@@ -15315,6 +15321,14 @@ MonoBehaviour:
     - spawnTimeStartToEnd: {x: 42.255444, y: 100}
       spawnFrequency: 1
       enemyPrefab: {fileID: 1242135853}
+  - name: Wave 03
+    waveEnemys:
+    - spawnTimeStartToEnd: {x: 0, y: 57.74456}
+      spawnFrequency: 1
+      enemyPrefab: {fileID: 1456978223}
+    - spawnTimeStartToEnd: {x: 15.681298, y: 73.42588}
+      spawnFrequency: 1
+      enemyPrefab: {fileID: 469793112}
 --- !u!114 &1241720284
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17798,6 +17812,50 @@ Transform:
   - {fileID: 145619227}
   m_Father: {fileID: 1189120936}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1567263847
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1567263848}
+  - component: {fileID: 1567263849}
+  m_Layer: 0
+  m_Name: PlayerStateManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1567263848
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1567263847}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1113573936}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1567263849
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1567263847}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4465ab869b98c64588d3bf0ff03314c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1581667966
 GameObject:
   m_ObjectHideFlags: 0
@@ -20162,6 +20220,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91b73d860645ee34f80ee110f923a4f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerStateManager: {fileID: 1567263849}
   upgradeContainerButton:
   - {fileID: 1839906308}
   - {fileID: 873065383}
@@ -22171,8 +22230,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthSlider: {fileID: 984488580}
-  maxHealth: 100
   healthText: {fileID: 148184253}
+  baseMaxHealth: 10
+  maxHealth: 0
   health: 0
 --- !u!58 &2028635049
 CircleCollider2D:

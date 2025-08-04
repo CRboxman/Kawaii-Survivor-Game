@@ -10,6 +10,7 @@ public class WaveTransitionManager : MonoBehaviour, IGameStateListener
 {
 
     [Header("Objects")]
+    [SerializeField] private PlayerStateManager playerStateManager;
     [SerializeField] private UpGrateContainer_UI[] upgradeContainerButton;
     //[Header("Settings")]
 
@@ -39,88 +40,140 @@ public class WaveTransitionManager : MonoBehaviour, IGameStateListener
         {
             int randomIndex = UnityEngine.Random.Range(0, Enum.GetValues(typeof(PlayerState)).Length);
             PlayerState state = (PlayerState)Enum.GetValues(typeof(PlayerState)).GetValue(randomIndex);
-            string randomStateString = Enums.GetOlayerStateName(state);
-            string buttonString ;
-            Action action = GetAction(state,out buttonString);
-            upgradeContainerButton[i].Configure(null, randomStateString, buttonString);
+            string randomStateString = Enums.GetPlayerStateName(state);
+            string upgradeValueString ;
+            Action action = GetAction(state,out upgradeValueString);
+            upgradeContainerButton[i].Configure(null, randomStateString, upgradeValueString);
             upgradeContainerButton[i].Button.onClick.RemoveAllListeners();
             upgradeContainerButton[i].Button.onClick.AddListener(() =>
             {
                 action?.Invoke();
             });
+            upgradeContainerButton[i].Button.onClick.AddListener(()=>BounsSelectedCallBack());
         }
     }
-
-    private Action GetAction(PlayerState state, out string buttonString)
+    private void BounsSelectedCallBack()
     {
-        buttonString = "";
-        float value;
+        GameManager.instance.WaveCompletedCallBack();
+    }
+    private Action GetAction(PlayerState state, out string upgradeValueString)
+    {
+        upgradeValueString = "";
+        float value=0;
 
         switch (state)
         {
             case PlayerState.Attack:
                 value = UnityEngine.Random.Range(1, 11);
-                buttonString = "+" + value.ToString() + " 攻击力";
-                return () => Debug.Log("增加攻击力：" + value);
+                upgradeValueString = "+" + value + " 攻击力";
+                return () =>
+                {
+                    playerStateManager.AddPlayerState(state, value);
+                    Debug.Log("增加攻击力：" + value);
+                };
 
             case PlayerState.AttackSpeed:
                 value = UnityEngine.Random.Range(0.1f, 1.0f);
-                buttonString = "+" + value.ToString("F2") + " 攻速";
-                return () => Debug.Log("增加攻速：" + value);
+                upgradeValueString = "+" + value.ToString("F2") + " 攻速";
+                return () =>
+                {
+                    playerStateManager.AddPlayerState(state, value);
+                    Debug.Log("增加攻速：" + value);
+                };
 
             case PlayerState.CriticalChance:
                 value = UnityEngine.Random.Range(1, 10);
-                buttonString = "+" + value.ToString() + "% 暴击率";
-                return () => Debug.Log("增加暴击率：" + value);
+                upgradeValueString = "+" + value + "% 暴击率";
+                return () =>
+                {
+                    playerStateManager.AddPlayerState(state, value);
+                    Debug.Log("增加暴击率：" + value);
+                };
 
             case PlayerState.CriticalPercent:
                 value = UnityEngine.Random.Range(10, 51);
-                buttonString = "+" + value.ToString() + "% 暴击伤害";
-                return () => Debug.Log("增加暴击伤害：" + value);
+                upgradeValueString = "+" + value + "% 暴击伤害";
+                return () =>
+                {
+                    playerStateManager.AddPlayerState(state, value);
+                    Debug.Log("增加暴击伤害：" + value);
+                };
 
             case PlayerState.MoveSpeed:
                 value = UnityEngine.Random.Range(1, 5);
-                buttonString = "+" + value.ToString() + " 移动速度";
-                return () => Debug.Log("增加移动速度：" + value);
+                upgradeValueString = "+" + value + " 移动速度";
+                return () =>
+                {
+                    playerStateManager.AddPlayerState(state, value);
+                    Debug.Log("增加移动速度：" + value);
+                };
 
             case PlayerState.MaxHealth:
                 value = UnityEngine.Random.Range(10, 101);
-                buttonString = "+" + value.ToString() + " 最大生命";
-                return () => Debug.Log("增加最大生命：" + value);
+                upgradeValueString = "+" + value + " 最大生命";
+                return () =>
+                {
+                    playerStateManager.AddPlayerState(state, value);
+                    Debug.Log("增加最大生命：" + value);
+                };
 
             case PlayerState.Range:
                 value = UnityEngine.Random.Range(1, 5);
-                buttonString = "+" + value.ToString() + " 攻击范围";
-                return () => Debug.Log("增加攻击范围：" + value);
+                upgradeValueString = "+" + value + " 攻击范围";
+                return () =>
+                {
+                    playerStateManager.AddPlayerState(state, value);
+                    Debug.Log("增加攻击范围：" + value);
+                };
 
             case PlayerState.HealthRecoverySpeed:
                 value = UnityEngine.Random.Range(0.1f, 1.0f);
-                buttonString = "+" + value.ToString("F2") + " 生命回复";
-                return () => Debug.Log("增加生命回复速度：" + value);
+                upgradeValueString = "+" + value.ToString("F2") + " 生命回复";
+                return () =>
+                {
+                    playerStateManager.AddPlayerState(state, value);
+                    Debug.Log("增加生命回复速度：" + value);
+                };
 
             case PlayerState.Armor:
                 value = UnityEngine.Random.Range(1, 10);
-                buttonString = "+" + value.ToString() + " 护甲";
-                return () => Debug.Log("增加护甲：" + value);
+                upgradeValueString = "+" + value + " 护甲";
+                return () =>
+                {
+                    playerStateManager.AddPlayerState(state, value);
+                    Debug.Log("增加护甲：" + value);
+                };
 
             case PlayerState.Luck:
                 value = UnityEngine.Random.Range(1, 5);
-                buttonString = "+" + value.ToString() + " 幸运值";
-                return () => Debug.Log("增加幸运：" + value);
+                upgradeValueString = "+" + value + " 幸运值";
+                return () =>
+                {
+                    playerStateManager.AddPlayerState(state, value);
+                    Debug.Log("增加幸运：" + value);
+                };
 
             case PlayerState.Dodge:
                 value = UnityEngine.Random.Range(1, 10);
-                buttonString = "+" + value.ToString() + "% 闪避";
-                return () => Debug.Log("增加闪避率：" + value);
+                upgradeValueString = "+" + value + "% 闪避";
+                return () =>
+                {
+                    playerStateManager.AddPlayerState(state, value);
+                    Debug.Log("增加闪避率：" + value);
+                };
 
             case PlayerState.LifeSteal:
                 value = UnityEngine.Random.Range(1, 10);
-                buttonString = "+" + value.ToString() + "% 吸血";
-                return () => Debug.Log("增加吸血：" + value);
+                upgradeValueString = "+" + value + "% 吸血";
+                return () =>
+                {
+                    playerStateManager.AddPlayerState(state, value);
+                    Debug.Log("增加吸血：" + value);
+                };
 
             default:
-                buttonString = "未知";
-                return () => Debug.LogWarning("未知状态：" + state);
+                upgradeValueString = "未知属性";
+                return () => Debug.LogWarning("未知的 PlayerState: " + state);
         }
     }
 
