@@ -9,12 +9,23 @@ using UnityEngine;
 /// </summary>
 public class PlayerStateManager : MonoBehaviour
 {
+    [Header("Objects")]
+    [SerializeField] private CharacterSO playerData;
     [Header("Settings")]
+    private Dictionary<PlayerState,float> playerAddedStates = new Dictionary<PlayerState, float>();
     private Dictionary<PlayerState,float> playerStates = new Dictionary<PlayerState, float>();
+    private void Awake()
+    {
+        playerStates = playerData.BaseStats;
+
+        foreach(KeyValuePair<PlayerState,float> kvp in playerStates)
+        {
+            playerAddedStates.Add(kvp.Key,kvp.Value);
+        }
+    }
     // Start is called before the first frame update
     void Start()
     {
-        playerStates.Add(PlayerState.MaxHealth, 50f);
         UpdatePlayerStats();
     }
 
@@ -30,14 +41,14 @@ public class PlayerStateManager : MonoBehaviour
     /// <param name="value"></param>
     public void AddPlayerState(PlayerState state, float value)
     {
-        if (playerStates.ContainsKey(state))
+        if (playerAddedStates.ContainsKey(state))
         {
-            playerStates[state] += value;
+            playerAddedStates[state] += value;
         }
         else
         {
             // 不存在就添加新的键值对
-            playerStates[state] = value;
+            playerAddedStates[state] = value;
         }
         UpdatePlayerStats();
     }
@@ -56,7 +67,7 @@ public class PlayerStateManager : MonoBehaviour
     }
     public float GetPlayerStateValue(PlayerState nowState)
     {
-        return playerStates[nowState];
+        return playerAddedStates[nowState];
     }
 }
 

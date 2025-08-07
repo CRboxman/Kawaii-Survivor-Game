@@ -17856,6 +17856,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4465ab869b98c64588d3bf0ff03314c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerData: {fileID: 11400000, guid: b785326d525c8214499e0b5d1500c1c9, type: 2}
 --- !u!1 &1581667966
 GameObject:
   m_ObjectHideFlags: 0
@@ -22231,7 +22232,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthSlider: {fileID: 984488580}
   healthText: {fileID: 148184253}
-  baseMaxHealth: 10
+  baseMaxHealth: 0
   maxHealth: 0
   health: 0
 --- !u!58 &2028635049

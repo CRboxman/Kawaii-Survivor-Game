@@ -43,12 +43,16 @@ public class WaveTransitionManager : MonoBehaviour, IGameStateListener
             string randomStateString = Enums.GetPlayerStateName(state);
             string upgradeValueString ;
             Action action = GetAction(state,out upgradeValueString);
-            upgradeContainerButton[i].Configure(null, randomStateString, upgradeValueString);
-            upgradeContainerButton[i].Button.onClick.RemoveAllListeners();
+            upgradeContainerButton[i].Configure(null, randomStateString, upgradeValueString);// 设置按钮文本和描述
+            upgradeContainerButton[i].Button.onClick.RemoveAllListeners();// 清除之前的监听器
             upgradeContainerButton[i].Button.onClick.AddListener(() =>
             {
                 action?.Invoke();
-            });
+            });//根据这次随机的状态，设置按钮的点击事件，触发对应的状态增加方法 
+            // 添加一个回调，当玩家选择了这个奖励时，调用GameManager的WaveCompletedCallBack方法，判断是否还有升级点
+            // 如果没有升级点，则进入商店界面，有升级点，则继续等待玩家选择（手动执行回合结束回调，统一调用一次状态接口方法）
+            //目前有回合过渡阶段的状态升级以及判断是否还可以再次选择，ui，波次管理器的移动和生成
+            // 选择之后再次判断
             upgradeContainerButton[i].Button.onClick.AddListener(()=>BounsSelectedCallBack());
         }
     }
