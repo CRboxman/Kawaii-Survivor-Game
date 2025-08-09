@@ -36,6 +36,12 @@ public class PlayerBullet : MonoBehaviour
     {
         this.rangeWeapon = rangeWeapon;
     }
+    /// <summary>
+    /// 初始化子弹伤害，暴击状态，方向和速度
+    /// </summary>
+    /// <param name="damage"></param>
+    /// <param name="direction"></param>
+    /// <param name="isCriticalHit"></param>
     public void Shoot(float damage, Vector2 direction,bool isCriticalHit)
     {
         Invoke("Release", 1);

@@ -131,6 +131,7 @@ public class WaveManager : MonoBehaviour, IGameStateListener
                 //currentWaveIndex = 0;
                 //waveManagerUI.UpdateWaveText("Menu");
                 //KillAllEnemys(enemyParent);
+                player.CanMove(false);
                 Debug.Log("在Menu状态下，等待点击按钮，来让状态为Game，StartWave才开始波次");
                 break;
             case GameState.GAME:
@@ -178,7 +179,7 @@ public struct Wave
 [System.Serializable]
 public struct WaveEnemy
 {
-    [MinMaxSlider(0, 100)] public Vector2 spawnTimeStartToEnd;
+    [MinMaxSlider(0, 100)] public Vector2 spawnTimeStartToEnd;// 以百分比表示的生成时间范围
     public float spawnFrequency;
     public GameObject enemyPrefab;
 }

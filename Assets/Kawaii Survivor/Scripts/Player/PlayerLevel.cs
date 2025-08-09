@@ -30,7 +30,7 @@ public class PlayerLevel : MonoBehaviour
     }
     private void updateRequireXP()
     {
-        requireXp+= level*5;
+        requireXp+= level*5;//经验值需求提升公式！！！！！！！！！！！！！！！！！！！！！！！！！！！！
     }
     private void updateSlider()
     {

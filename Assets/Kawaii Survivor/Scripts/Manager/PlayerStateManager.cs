@@ -20,7 +20,7 @@ public class PlayerStateManager : MonoBehaviour
 
         foreach(KeyValuePair<PlayerState,float> kvp in playerStates)
         {
-            playerAddedStates.Add(kvp.Key,kvp.Value);
+            playerAddedStates.Add(kvp.Key,0);
         }
     }
     // Start is called before the first frame update

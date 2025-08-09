@@ -45,7 +45,11 @@ public class Player : MonoBehaviour
     {
         return playerLevel.HasLevelUp();
     }
-    public void CanMove(bool canMove)
+    /// <summary>
+    /// 默认不能移动
+    /// </summary>
+    /// <param name="canMove"></param>
+    public void CanMove(bool canMove=false)
     {
         playerController.canMove = canMove;
     }
