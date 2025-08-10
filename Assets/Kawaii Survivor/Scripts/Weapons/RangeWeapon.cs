@@ -85,6 +85,21 @@ public class RangeWeapon : Weapon
         bulletInstance.Shoot(damage, transform.up, isCriticalHit);
         animatior.speed = 1f / attackDelay;
     }
-    #endregion
 
+
+    #endregion
+    public override void UpdateStats(PlayerStateManager playerStateManager)
+    {
+        ConfigureStats();
+        damage = damage * (1 +playerStateManager.GetPlayerStateValue(PlayerState.Attack)/100);
+        attackDelay = Mathf.Max(0.05f, attackDelay / (1 + playerStateManager.GetPlayerStateValue(PlayerState.AttackSpeed) / 100));
+
+
+        criticalChance += playerStateManager.GetPlayerStateValue(PlayerState.CriticalChance)/100;
+        criticalChance *= 100;
+        criticalPercent += playerStateManager.GetPlayerStateValue(PlayerState.CriticalPercent)/100;
+
+        range+= playerStateManager.GetPlayerStateValue(PlayerState.Range);
+
+    }
 }

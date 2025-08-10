@@ -21,7 +21,7 @@ public class DamageText : MonoBehaviour
     }
     public void PlayAnimate(float damage, bool isCriticalHit)
     {
-        damageText.text = damage.ToString();
+        damageText.text = Mathf.Floor(damage).ToString();
         if (isCriticalHit==true)
         {
             damageText.color = Color.yellow; // 红色不透明
@@ -32,5 +32,11 @@ public class DamageText : MonoBehaviour
         }
 
         DamageTextAnimator.Play("Damage_Text");
+    }
+    public void PlayAnimate(string text)
+    {
+        damageText.text = text;
+        damageText.color = Color.white; // 白色不透明
+        DamageTextAnimator.Play("Dodge");
     }
 }

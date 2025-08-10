@@ -71,7 +71,7 @@ public abstract class Enemy : MonoBehaviour
     {
         float realDamage = Mathf.Clamp(damage, 0f, health);
         health -= realDamage;
-        healthText.text = health.ToString();
+        healthText.text = Mathf.Floor(health).ToString();
 
         onDamageTaken?.Invoke(damage, transform.position, isCriticalHit);
 

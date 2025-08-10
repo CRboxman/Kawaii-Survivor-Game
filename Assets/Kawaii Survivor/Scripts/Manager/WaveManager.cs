@@ -137,6 +137,7 @@ public class WaveManager : MonoBehaviour, IGameStateListener
             case GameState.GAME:
                 // 在游戏状态下，开始第一波
                 player.CanMove(true);
+                // 如果当前没有波次在进行，且还有波次未开始，则开始当前波次，如果超出索引范围，则不开始，仅仅允许玩家移动
                 if (!isWaveStarted && currentWaveIndex < waves.Length)
                 {
                     StartWave(currentWaveIndex);
@@ -159,6 +160,7 @@ public class WaveManager : MonoBehaviour, IGameStateListener
                 // 在游戏结束状态下，停止
                 isWaveStarted = false;
                 player.CanMove(false);
+                KillAllEnemys(enemyParent);
                 Debug.Log("在GameOver状态下，无法移动，波次停止，等待操作，或者几秒后自动重新加载");
                 break;
             case GameState.WEAPON_SELECT:
@@ -180,6 +182,6 @@ public struct Wave
 public struct WaveEnemy
 {
     [MinMaxSlider(0, 100)] public Vector2 spawnTimeStartToEnd;// 以百分比表示的生成时间范围
-    public float spawnFrequency;
+    [Range(0,15)][Tooltip("一秒几个")]public float spawnFrequency;
     public GameObject enemyPrefab;
 }

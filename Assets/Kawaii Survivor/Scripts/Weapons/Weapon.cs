@@ -3,10 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Weapon : MonoBehaviour
+public abstract class Weapon : MonoBehaviour, IPlayerStatesDependency
 {
     [Header("Objects")]
     [SerializeField] protected Animator animatior;
+    [field: SerializeField] public WeaponDataSO weaponData { get; private set; }
+    [field: SerializeField] public int weaponLevel { get; private set; }
     [Header("Settings")]
     [SerializeField] protected float range;
     [SerializeField] protected LayerMask enemyLayerMask;
@@ -15,6 +17,8 @@ public abstract class Weapon : MonoBehaviour
     [SerializeField] protected float damage;
     [SerializeField] protected float attackDelay;
     [SerializeField] protected float attackTimer;
+    [SerializeField][Range(0, 100)] protected float criticalChance;
+    [SerializeField][Range(0,10)] protected float criticalPercent;
     [Header("Debug")]
     [SerializeField] protected bool detectGizmos;
     // Start is called before the first frame update
@@ -53,14 +57,27 @@ public abstract class Weapon : MonoBehaviour
     protected float GetDamage(out bool isCriticalHit)
     {
         isCriticalHit = false;
-        if (UnityEngine.Random.Range(0, 101) <= 50)
+        if (UnityEngine.Random.Range(0, 101) <= criticalChance)
         {
             isCriticalHit = true;
-            return damage * 2;
+            return damage * criticalPercent;
         }
         return damage;
     }
+    public abstract void UpdateStats(PlayerStateManager playerStateManager);
 
+    protected void ConfigureStats()
+    {
+        float multiplier = 1 + weaponLevel / 3;
+        damage = weaponData.GetStateValue(PlayerState.Attack) * multiplier;
+        attackDelay = (1 / (weaponData.GetStateValue(PlayerState.AttackSpeed)) / multiplier);
+        criticalChance = weaponData.GetStateValue(PlayerState.CriticalChance) /100* multiplier;
+        criticalPercent = weaponData.GetStateValue(PlayerState.CriticalPercent)/100 * multiplier;
+        if (weaponData.weaponPref.GetType()==typeof(RangeWeapon))
+        {
+            range = weaponData.GetStateValue(PlayerState.Range) * multiplier;
+        }
+    }
     private void OnDrawGizmos()
     {
         if (detectGizmos)
@@ -74,4 +91,6 @@ public abstract class Weapon : MonoBehaviour
         Gizmos.color = Color.blue;
         Gizmos.DrawWireSphere(transform.position, range);
     }
+
+
 }

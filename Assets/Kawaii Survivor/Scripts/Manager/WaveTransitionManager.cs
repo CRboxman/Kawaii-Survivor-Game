@@ -68,21 +68,21 @@ public class WaveTransitionManager : MonoBehaviour, IGameStateListener
         switch (state)
         {
             case PlayerState.Attack:
-                value = UnityEngine.Random.Range(1, 11);
-                upgradeValueString = "+" + value + " 攻击力";
+                value = UnityEngine.Random.Range(3,10);
+                upgradeValueString = "+" +value.ToString("F2") + " %攻击力";
                 return () =>
                 {
                     playerStateManager.AddPlayerState(state, value);
-                    Debug.Log("增加攻击力：" + value);
+                    Debug.Log("增加攻击力："+ value.ToString("F2") + "%");
                 };
 
             case PlayerState.AttackSpeed:
-                value = UnityEngine.Random.Range(0.1f, 1.0f);
-                upgradeValueString = "+" + value.ToString("F2") + " 攻速";
+                value = UnityEngine.Random.Range(5f, 10f);
+                upgradeValueString = "+" + value.ToString("F2") + " %攻速";
                 return () =>
                 {
                     playerStateManager.AddPlayerState(state, value);
-                    Debug.Log("增加攻速：" + value);
+                    Debug.Log("增加攻速：" + value.ToString("F2"));
                 };
 
             case PlayerState.CriticalChance:
@@ -91,29 +91,29 @@ public class WaveTransitionManager : MonoBehaviour, IGameStateListener
                 return () =>
                 {
                     playerStateManager.AddPlayerState(state, value);
-                    Debug.Log("增加暴击率：" + value);
+                    Debug.Log("增加暴击率：" + value.ToString("F2") + "%");
                 };
 
             case PlayerState.CriticalPercent:
-                value = UnityEngine.Random.Range(10, 51);
+                value = UnityEngine.Random.Range(15,25);
                 upgradeValueString = "+" + value + "% 暴击伤害";
                 return () =>
                 {
                     playerStateManager.AddPlayerState(state, value);
-                    Debug.Log("增加暴击伤害：" + value);
+                    Debug.Log("增加暴击伤害：" + value.ToString("F2") + "%");
                 };
 
             case PlayerState.MoveSpeed:
-                value = UnityEngine.Random.Range(1, 5);
-                upgradeValueString = "+" + value + " 移动速度";
+                value = UnityEngine.Random.Range(1,5);
+                upgradeValueString = "+" + value + " %移动速度";
                 return () =>
                 {
                     playerStateManager.AddPlayerState(state, value);
-                    Debug.Log("增加移动速度：" + value);
+                    Debug.Log("增加移动速度：" + value.ToString("F2") + "%");
                 };
 
             case PlayerState.MaxHealth:
-                value = UnityEngine.Random.Range(10, 101);
+                value = UnityEngine.Random.Range(5,10);
                 upgradeValueString = "+" + value + " 最大生命";
                 return () =>
                 {
@@ -131,21 +131,21 @@ public class WaveTransitionManager : MonoBehaviour, IGameStateListener
                 };
 
             case PlayerState.HealthRecoverySpeed:
-                value = UnityEngine.Random.Range(0.1f, 1.0f);
-                upgradeValueString = "+" + value.ToString("F2") + " 生命回复";
+                value = UnityEngine.Random.Range(0.1f, 0.3f);
+                upgradeValueString = "+" + value.ToString("F2") + " 每秒生命回复次数";
                 return () =>
                 {
                     playerStateManager.AddPlayerState(state, value);
-                    Debug.Log("增加生命回复速度：" + value);
+                    Debug.Log("增加生命回复速度：" + value.ToString("F2"));
                 };
 
             case PlayerState.Armor:
-                value = UnityEngine.Random.Range(1, 10);
-                upgradeValueString = "+" + value + " 护甲";
+                value = UnityEngine.Random.Range(0.5f,2.5f);
+                upgradeValueString = "+" + value.ToString("F2") + " %护甲";
                 return () =>
                 {
                     playerStateManager.AddPlayerState(state, value);
-                    Debug.Log("增加护甲：" + value);
+                    Debug.Log("增加护甲：" + value.ToString("F2")+"%");
                 };
 
             case PlayerState.Luck:
@@ -158,21 +158,21 @@ public class WaveTransitionManager : MonoBehaviour, IGameStateListener
                 };
 
             case PlayerState.Dodge:
-                value = UnityEngine.Random.Range(1, 10);
+                value = UnityEngine.Random.Range(3, 5);
                 upgradeValueString = "+" + value + "% 闪避";
                 return () =>
                 {
                     playerStateManager.AddPlayerState(state, value);
-                    Debug.Log("增加闪避率：" + value);
+                    Debug.Log("增加闪避率：" + value.ToString("F2") + "%");
                 };
 
             case PlayerState.LifeSteal:
-                value = UnityEngine.Random.Range(1, 10);
+                value = UnityEngine.Random.Range(2,4);
                 upgradeValueString = "+" + value + "% 吸血";
                 return () =>
                 {
                     playerStateManager.AddPlayerState(state, value);
-                    Debug.Log("增加吸血：" + value);
+                    Debug.Log("增加吸血：" +value.ToString("F2") + "%");
                 };
 
             default:

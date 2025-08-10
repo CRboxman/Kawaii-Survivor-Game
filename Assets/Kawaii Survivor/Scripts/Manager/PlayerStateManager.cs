@@ -35,7 +35,7 @@ public class PlayerStateManager : MonoBehaviour
         
     }
     /// <summary>
-    /// 主动触发一下UpdatePlayerStats方法，更新所有实现了IPlayerStatesDependency接口的组件
+    /// 更新增加的数值，并在最后主动触发一下所有实现更新状态的IPlayerStatesDependency接口的UpdateStats方法
     /// </summary>
     /// <param name="state"></param>
     /// <param name="value"></param>
@@ -48,7 +48,7 @@ public class PlayerStateManager : MonoBehaviour
         else
         {
             // 不存在就添加新的键值对
-            playerAddedStates[state] = value;
+            Debug.LogWarning($"PlayerStateManager: 添加状态 {state.ToString()} 时，发现该状态不存在于playerAddedStates中");
         }
         UpdatePlayerStats();
     }
@@ -67,7 +67,8 @@ public class PlayerStateManager : MonoBehaviour
     }
     public float GetPlayerStateValue(PlayerState nowState)
     {
-        return playerAddedStates[nowState];
+        float value = playerAddedStates[nowState]+ playerStates[nowState];
+        return value;
     }
 }
 

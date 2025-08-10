@@ -14,6 +14,7 @@ public class DamageTextManager : MonoBehaviour
     private void Awake()
     {
         Enemy.onDamageTaken += EnemyHitCallBack;
+        PlayerHealth.OnAttackDodge += PlayerDodgeCallBack;
     }
     void Start()
     {
@@ -47,6 +48,8 @@ public class DamageTextManager : MonoBehaviour
     private void OnDestroy()
     {
         Enemy.onDamageTaken -= EnemyHitCallBack;
+        PlayerHealth.OnAttackDodge -= PlayerDodgeCallBack;
+
     }
     /// <summary>
     /// 敌人受到伤害回调函数，进行伤害文本的实例化和播放动画
@@ -67,4 +70,15 @@ public class DamageTextManager : MonoBehaviour
         //1秒之后释放（释放即返回到池中，失活那个对象）
         LeanTween.delayedCall(1, () => damageTextPool.Release(damageTextInstance));
     }
+    private void PlayerDodgeCallBack(Vector2 playerPos)
+    {
+        DamageText damageTextInstance = damageTextPool.Get();
+        Vector3 spawnPosition = playerPos;
+        //spawnPosition = Camera.main.WorldToScreenPoint(spawnPosition);
+        damageTextInstance.transform.position = spawnPosition;
+        damageTextInstance.PlayAnimate("Dodge!");
+        //1秒之后释放（释放即返回到池中，失活那个对象）
+        LeanTween.delayedCall(1, () => damageTextPool.Release(damageTextInstance));
+    }
+
 }
