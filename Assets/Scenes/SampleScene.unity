@@ -9423,6 +9423,11 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 1
+--- !u!1 &661274193 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4579860033720658776, guid: af7fd00e38939e142936addc92916550, type: 3}
+  m_PrefabInstance: {fileID: 979360649}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &674798527
 GameObject:
   m_ObjectHideFlags: 0
@@ -10629,7 +10634,7 @@ MonoBehaviour:
   offset_1: {x: 0, y: 0.5}
   offset_2: {x: 1, y: -0.5}
   spawnCashProbability: 66
-  spawnTreasureProbability: 5
+  spawnTreasureProbability: 0.5
 --- !u!1 &781328713
 GameObject:
   m_ObjectHideFlags: 0
@@ -14708,7 +14713,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ab5d197edf9c1d42923d5f18b1a7b33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waveDuration: 20
+  waveDuration: 30
   enemyParent: {fileID: 433651493}
   player: {fileID: 2028635047}
   waves:
@@ -14737,11 +14742,25 @@ MonoBehaviour:
   - name: Wave 03
     waveEnemys:
     - spawnTimeStartToEnd: {x: 0, y: 57.74456}
+      spawnFrequency: 3
+      enemyPrefab: {fileID: 1456978223}
+    - spawnTimeStartToEnd: {x: 42.255424, y: 100}
+      spawnFrequency: 4
+      enemyPrefab: {fileID: 469793112}
+    - spawnTimeStartToEnd: {x: 21.626238, y: 79.37081}
+      spawnFrequency: 4
+      enemyPrefab: {fileID: 661274193}
+  - name: Wave 03
+    waveEnemys:
+    - spawnTimeStartToEnd: {x: 0, y: 57.74456}
       spawnFrequency: 1
       enemyPrefab: {fileID: 1456978223}
-    - spawnTimeStartToEnd: {x: 15.681298, y: 73.42588}
+    - spawnTimeStartToEnd: {x: 42.255424, y: 100}
       spawnFrequency: 1
       enemyPrefab: {fileID: 469793112}
+    - spawnTimeStartToEnd: {x: 21.626238, y: 79.37081}
+      spawnFrequency: 1
+      enemyPrefab: {fileID: 661274193}
 --- !u!114 &1241720284
 MonoBehaviour:
   m_ObjectHideFlags: 0

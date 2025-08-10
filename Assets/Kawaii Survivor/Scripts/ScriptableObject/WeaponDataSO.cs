@@ -15,7 +15,7 @@ public class WeaponDataSO : ScriptableObject
     [SerializeField][Range(0,500)] private float attack;
     [SerializeField] private float attackSpeed;
     [SerializeField][Range(0, 100)] private float criticalChance;
-    [SerializeField][Range(0,100)] private float criticalPercent;
+    [SerializeField][Range(0,500)] private float criticalPercent;
     [SerializeField] private float range;
     public Dictionary<PlayerState, float> BaseStats
     {

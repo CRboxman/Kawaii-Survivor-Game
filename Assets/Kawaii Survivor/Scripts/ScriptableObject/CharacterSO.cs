@@ -12,7 +12,7 @@ public class CharacterSO : ScriptableObject
     [HorizontalLine]
     [Header("属性增益(%)，不是具体数值")]
     [SerializeField][Range(0, 500)][Tooltip("属性增益，不是具体数值")] private float attack;
-    [SerializeField][Range(0, 5)][Tooltip("属性增益，不是具体数值")] private float attackSpeed;
+    [SerializeField][Range(0, 500)][Tooltip("属性增益，不是具体数值")] private float attackSpeed;
     [SerializeField][Range(0, 500)][Tooltip("属性增益，不是具体数值")] private float moveSpeed;
     [Header("具体数值")]
     [SerializeField] [Tooltip("具体数值，需要调整basehealth，手动初始化的")]private float maxHealth;
