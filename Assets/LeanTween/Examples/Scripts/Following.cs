@@ -35,7 +35,7 @@ public class Following : MonoBehaviour {
         LeanTween.followSpring(dude4, followArrow, LeanProp.localY, 1.1f, -1f, 1.5f, 0.8f);
         LeanTween.followLinear(dude5, followArrow, LeanProp.localY, 50f);
 
-        // Follow Arrow color
+        // Follow Arrow colorSo
         LeanTween.followDamp(dude1, followArrow, LeanProp.color, 1.1f);
         LeanTween.followSpring(dude2, followArrow, LeanProp.color, 1.1f);
         LeanTween.followBounceOut(dude3, followArrow, LeanProp.color, 1.1f);

@@ -6,8 +6,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Weapon Data", menuName = "ScriptableObject/new Weapon Data")]
 public class WeaponDataSO : ScriptableObject
 {
-    [field: SerializeField]public string CharacterName { get; private set; }
-    [field: SerializeField]public Sprite CharacterSprite { get; private set; }
+    [field: SerializeField]public string WeaponName { get; private set; }
+    [field: SerializeField]public Sprite WeaponSprite { get; private set; }
     [field: SerializeField]public int PurchasePrice { get; private set; }
     [field: SerializeField]public Weapon weaponPref { get; private set; }
     [HorizontalLine]

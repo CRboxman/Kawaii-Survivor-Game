@@ -23,7 +23,7 @@ public static class LeanTweenExt
     //LeanTween.cancel
     public static void LeanCancel(this RectTransform rectTransform) { LeanTween.cancel(rectTransform); }
     //LeanTween.cancelAll
-    //LeanTween.color
+    //LeanTween.colorSo
     public static LTDescr LeanColor(this GameObject gameObject, Color to, float time) { return LeanTween.color(gameObject, to, time); }
     //LeanTween.colorText
     public static LTDescr LeanColorText(this RectTransform rectTransform, Color to, float time) { return LeanTween.colorText(rectTransform, to, time); }

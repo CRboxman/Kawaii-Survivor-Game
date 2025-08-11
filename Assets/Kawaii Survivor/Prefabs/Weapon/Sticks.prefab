@@ -54,8 +54,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   aimLerp: 12
-  damage: 30
-  attackDelay: 0.5
+  damage: 0
+  attackDelay: 0
   attackTimer: 0
   criticalChance: 0
   criticalPercent: 0

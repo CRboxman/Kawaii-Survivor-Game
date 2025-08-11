@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f651a1eabd06af345aa6c6bacd3275dd, type: 3}
   m_Name: Melee Weapon Data
   m_EditorClassIdentifier: 
-  <CharacterName>k__BackingField: Stick Weapon
-  <CharacterSprite>k__BackingField: {fileID: 5485319108022510092, guid: 15c981701acaf3f4b840cf2f1f7d3446, type: 3}
+  <WeaponName>k__BackingField: Melee Weapon
+  <WeaponSprite>k__BackingField: {fileID: 5485319108022510092, guid: 15c981701acaf3f4b840cf2f1f7d3446, type: 3}
   <PurchasePrice>k__BackingField: 0
   <weaponPref>k__BackingField: {fileID: 5718563473022788753, guid: 6195a5c62c01b8f4eb47949b91c00a3d, type: 3}
   attack: 30

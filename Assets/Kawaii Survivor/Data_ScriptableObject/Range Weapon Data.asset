@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f651a1eabd06af345aa6c6bacd3275dd, type: 3}
   m_Name: Range Weapon Data
   m_EditorClassIdentifier: 
-  <CharacterName>k__BackingField: Gun
-  <CharacterSprite>k__BackingField: {fileID: 21300000, guid: 84f07b27a38eda042b5858622cbeaf52, type: 3}
+  <WeaponName>k__BackingField: Gun
+  <WeaponSprite>k__BackingField: {fileID: 21300000, guid: 84f07b27a38eda042b5858622cbeaf52, type: 3}
   <PurchasePrice>k__BackingField: 0
   <weaponPref>k__BackingField: {fileID: 376211003558072077, guid: 43d664cf57929dc468d1d4ccf468c200, type: 3}
   attack: 15

@@ -71,7 +71,7 @@ public class GeneralUISpace : MonoBehaviour {
 		// Play a series of sprites on the window on repeat endlessly
 		LeanTween.play(chatRect, chatSprites).setLoopPingPong();
 
-		// Animate the bar up and down while changing the color to red-ish
+		// Animate the bar up and down while changing the colorSo to red-ish
 		LeanTween.color( chatBar2, new Color(248f/255f,67f/255f,108f/255f, 0.5f), 1.2f).setEase(LeanTweenType.easeInQuad).setLoopPingPong().setDelay(1.2f);
 		LeanTween.scale( chatBar2, new Vector2(1f,0.7f), 1.2f).setEase(LeanTweenType.easeInQuad).setLoopPingPong();
 

@@ -20,6 +20,7 @@ public class RangeWeapon : Weapon
         ActionOnRelease,
         ActionOnDestroy
         );
+        playerBulletPoolFather=GameObject.Find("PlayerBulletPool").transform;
     }
     // Update is called once per frame
     void Update()

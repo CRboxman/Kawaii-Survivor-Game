@@ -6,8 +6,8 @@ using UnityEngine;
 * Use these smooth methods to move one value towards another<br /><br />
 * <strong>Example: </strong><br />fromY = LeanSmooth.spring(fromY, followArrow.localPosition.y, ref velocityY, 1.1f);<br />
 * fromVec3 = LeanSmooth.damp(fromVec3, dude5Title.localPosition, ref velocityVec3, 1.1f);<br />
-* fromColor = LeanSmooth.damp(fromColor, dude5Title.GetComponent<Renderer>().material.color, ref velocityColor, 1.1f);<br />
-* Debug.Log("Smoothed y:" + fromY + " vec3:" + fromVec3 + " color:" + fromColor);<br />
+* fromColor = LeanSmooth.damp(fromColor, dude5Title.GetComponent<Renderer>().material.colorSo, ref velocityColor, 1.1f);<br />
+* Debug.Log("Smoothed y:" + fromY + " vec3:" + fromVec3 + " colorSo:" + fromColor);<br />
 *
 * @class LeanSmooth
 */
@@ -81,7 +81,7 @@ public class LeanSmooth {
     }
 
     /**
-    * <summary>Moves one color value towards another color (eases in and out to destination with no overshoot)</summary>
+    * <summary>Moves one colorSo value towards another colorSo (eases in and out to destination with no overshoot)</summary>
     * 
     * @method LeanSmooth.damp (Color)
     * @param {float} current:Color the current value
@@ -91,7 +91,7 @@ public class LeanSmooth {
     * @param {float} maxSpeed:float the top speed you want the value to move at (defaults to unlimited -1f)
     * @param {float} deltaTime:float the difference in time since the method was called (defaults to Time.deltaTime)
     * @example
-    * fromColor = LeanSmooth.damp(fromColor, transform.GetComponent<Renderer>().material.color, ref velocityColor, 1.1f);\n
+    * fromColor = LeanSmooth.damp(fromColor, transform.GetComponent<Renderer>().material.colorSo, ref velocityColor, 1.1f);\n
     * Debug.Log("current:"+fromColor);
     */
     public static Color damp(Color current, Color target, ref Color currentVelocity, float smoothTime, float maxSpeed = -1f, float deltaTime = -1f)
@@ -165,7 +165,7 @@ public class LeanSmooth {
     }
 
     /**
-    * <summary>Moves one color towards another (eases in and out to destination with possible overshoot bounciness)</summary>
+    * <summary>Moves one colorSo towards another (eases in and out to destination with possible overshoot bounciness)</summary>
     * 
     * @method LeanSmooth.spring (Color)
     * @param {Color} current:float the current value
@@ -177,7 +177,7 @@ public class LeanSmooth {
     * @param {float} [friction]:float rate at which the spring is slowed down once it reaches it's destination
     * @param {float} [accelRate]:float the rate it accelerates from it's initial position
     * @example
-    * fromColor = LeanSmooth.spring(fromColor, transform.GetComponent<Renderer>().material.color, ref velocityColor, 1.1f);\n
+    * fromColor = LeanSmooth.spring(fromColor, transform.GetComponent<Renderer>().material.colorSo, ref velocityColor, 1.1f);\n
     * Debug.Log("current:"+fromColor);
     */
     public static Color spring(Color current, Color target, ref Color currentVelocity, float smoothTime, float maxSpeed = -1f, float deltaTime = -1f, float friction = 2f, float accelRate = 0.5f)
@@ -244,7 +244,7 @@ public class LeanSmooth {
     }
 
     /**
-    * <summary>Moves one color towards another (at a constant speed)</summary>
+    * <summary>Moves one colorSo towards another (at a constant speed)</summary>
     * 
     * @method LeanSmooth.linear (Color)
     * @param {Color} current:float the current value
@@ -252,7 +252,7 @@ public class LeanSmooth {
     * @param {float} moveSpeed:float the speed at which to move towards the target
     * @param {float} deltaTime:float the difference in time since the method was called (defaults to Time.deltaTime)
     * @example
-    * fromColor = LeanSmooth.linear(fromColor, transform.GetComponent<Renderer>().material.color, 50f);\n
+    * fromColor = LeanSmooth.linear(fromColor, transform.GetComponent<Renderer>().material.colorSo, 50f);\n
     * Debug.Log("current:"+fromColor);
     */
     public static Color linear(Color current, Color target, float moveSpeed)
@@ -336,7 +336,7 @@ public class LeanSmooth {
     }
 
     /**
-    * <summary>Moves one color towards another (with an ease that bounces back some when it reaches it's destination)</summary>
+    * <summary>Moves one colorSo towards another (with an ease that bounces back some when it reaches it's destination)</summary>
     * 
     * @method LeanSmooth.bounceOut (Color)
     * @param {Color} current:float the current value
@@ -349,7 +349,7 @@ public class LeanSmooth {
     * @param {float} [accelRate]:float the rate it accelerates from it's initial position
     * @param {float} [hitDamping]:float the rate at which to dampen the bounciness of when it reaches it's destination
     * @example
-    * fromColor = LeanSmooth.bounceOut(fromColor, transform.GetComponent<Renderer>().material.color, ref followVelocity, 1.1f);\n
+    * fromColor = LeanSmooth.bounceOut(fromColor, transform.GetComponent<Renderer>().material.colorSo, ref followVelocity, 1.1f);\n
     * Debug.Log("current:" + fromColor);
     */
     public static Color bounceOut(Color current, Color target, ref Color currentVelocity, float smoothTime, float maxSpeed = -1f, float deltaTime = -1f, float friction = 2f, float accelRate = 0.5f, float hitDamping = 0.9f)

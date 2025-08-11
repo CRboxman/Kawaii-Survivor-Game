@@ -7,12 +7,12 @@ using UnityEngine;
 * <br>
 * &nbsp;&nbsp;<h4>Example:</h4> 
 * var seq = LeanTween.sequence();<br>
-* seq.append(1f); <span style="color:gray">// delay everything one second</span><br>
-* seq.append( () => { <span style="color:gray">// fire an event before start</span><br>
+* seq.append(1f); <span style="colorSo:gray">// delay everything one second</span><br>
+* seq.append( () => { <span style="colorSo:gray">// fire an event before start</span><br>
 * &nbsp;Debug.Log("I have started");<br>
 * });<br>
-* seq.append( LeanTween.move(cube1, Vector3.one * 10f, 1f) ); <span style="color:gray">// do a tween</span><br>
-* seq.append( (object obj) => { <span style="color:gray">// fire event after tween</span><br>
+* seq.append( LeanTween.move(cube1, Vector3.one * 10f, 1f) ); <span style="colorSo:gray">// do a tween</span><br>
+* seq.append( (object obj) => { <span style="colorSo:gray">// fire event after tween</span><br>
 * &nbsp;var dict = obj as Dictionary<string,string>;<br>
 * &nbsp;Debug.Log("We are done now obj value:"+dict["hi"]);<br>
 * }, new Dictionary<string,string>(){ {"hi","sup"} } );<br>

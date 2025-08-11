@@ -132,7 +132,7 @@ namespace Leguar.TotalJSON {
 		/// If this setting is used, resulting string can NOT be parsed back to JSON object! 
 		/// </remarks>
 		/// <value>
-		/// True to have color tags in output. Default is false.
+		/// True to have colorSo tags in output. Default is false.
 		/// </value>
 		public bool ColoredOutput {
 			set {

@@ -11,7 +11,7 @@ public class PlayerHealth : MonoBehaviour, IPlayerStatesDependency, IGameStateLi
     [Header("Objects")]
     [SerializeField] private Slider healthSlider;
     private bool gameStarted = false;
-    [Header("Settings")]
+    [Header("Settings（baseMaxHealth，healthToAddValue需要自己手动设置！！）")]
     [SerializeField] private TMP_Text healthText;
     [SerializeField][Tooltip("基础生命值")] private float baseMaxHealth;
     [SerializeField][Tooltip("目前加上增益的最大生命值")] private float maxHealth;
@@ -33,7 +33,7 @@ public class PlayerHealth : MonoBehaviour, IPlayerStatesDependency, IGameStateLi
     // Start is called before the first frame update
     void Start()
     {
-        health = baseMaxHealth = maxHealth;
+        health  = maxHealth;
         UpdateUi();
     }
     // Update is called once per frame

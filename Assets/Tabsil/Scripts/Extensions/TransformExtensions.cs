@@ -8,7 +8,7 @@ public static class TransformExtensions
     /// Destroys all of the transform's children
     /// </summary>
     /// <param name="transform">The parent</param>
-    public static void Clear(this Transform transform)
+    public static void ClearChild(this Transform transform)
     {
         while (transform.childCount > 0)
         {

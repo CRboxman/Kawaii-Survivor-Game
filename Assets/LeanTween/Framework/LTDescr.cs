@@ -18,11 +18,11 @@ using UnityEngine;
 * <br>
 * &nbsp;&nbsp;<h4>Example:</h4>
 * &nbsp;&nbsp;int id = LeanTween.moveX(gameObject, 1f, 3f).id;<br>
-* <div style="color:gray">&nbsp;&nbsp;// pause a specific tween</div>
+* <div style="colorSo:gray">&nbsp;&nbsp;// pause a specific tween</div>
 * &nbsp;&nbsp;LeanTween.pause(id);<br>
-* <div style="color:gray">&nbsp;&nbsp;// resume later</div>
+* <div style="colorSo:gray">&nbsp;&nbsp;// resume later</div>
 * &nbsp;&nbsp;LeanTween.resume(id);<br>
-* <div style="color:gray">&nbsp;&nbsp;// check if it is tweening before kicking of a new tween</div>
+* <div style="colorSo:gray">&nbsp;&nbsp;// check if it is tweening before kicking of a new tween</div>
 * &nbsp;&nbsp;if( LeanTween.isTweening( id ) ){<br>
 * &nbsp;&nbsp; &nbsp;&nbsp;	LeanTween.cancel( id );<br>
 * &nbsp;&nbsp; &nbsp;&nbsp;	LeanTween.moveZ(gameObject, 10f, 3f);<br>
