@@ -53,7 +53,7 @@ public abstract class Weapon : MonoBehaviour, IPlayerStatesDependency
         }
         return closestEnemy;
     }
-
+    //得到是否有暴击的伤害值
     protected float GetDamage(out bool isCriticalHit)
     {
         isCriticalHit = false;
@@ -65,18 +65,25 @@ public abstract class Weapon : MonoBehaviour, IPlayerStatesDependency
         return damage;
     }
     public abstract void UpdateStats(PlayerStateManager playerStateManager);
-
+    /// <summary>
+    /// 初始化武器的初始属性
+    /// </summary>
     protected void ConfigureStats()
     {
         float multiplier = 1 + weaponLevel / 3;
         damage = weaponData.GetStateValue(PlayerState.Attack) * multiplier;
-        attackDelay = (1 / (weaponData.GetStateValue(PlayerState.AttackSpeed)) / multiplier);
+        attackDelay = (1 / (weaponData.GetStateValue(PlayerState.AttackSpeed)) )/multiplier;
         criticalChance = weaponData.GetStateValue(PlayerState.CriticalChance) /100* multiplier;
         criticalPercent = weaponData.GetStateValue(PlayerState.CriticalPercent)/100 * multiplier;
         if (weaponData.weaponPref.GetType()==typeof(RangeWeapon))
         {
             range = weaponData.GetStateValue(PlayerState.Range) * multiplier;
         }
+    }
+    public void UpgrateTo(int targetLevel)
+    {
+        weaponLevel = targetLevel;
+        ConfigureStats();
     }
     private void OnDrawGizmos()
     {

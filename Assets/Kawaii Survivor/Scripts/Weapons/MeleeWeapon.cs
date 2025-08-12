@@ -3,9 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MeleeWeapon : Weapon,IGameStateListener
+public class MeleeWeapon : Weapon
 {
-    private bool gameStarted=false;
+
     private enum State
     {
         Idle,
@@ -61,7 +61,6 @@ public class MeleeWeapon : Weapon,IGameStateListener
     }
     private void WaitForAttack()
     {
-        if(gameStarted)
         attackTimer += Time.deltaTime;
     }
     //[NaughtyAttributes.Button],现在没必要用了，作为测试
@@ -107,6 +106,8 @@ public class MeleeWeapon : Weapon,IGameStateListener
     public override void UpdateStats(PlayerStateManager playerStateManager)
     {
         ConfigureStats();
+        Debug.Log("GameStateChangedCallBack: 游戏状态已更改为GAME，触发所有玩家状态更新");
+
         damage = damage * (1 + playerStateManager.GetPlayerStateValue(PlayerState.Attack) / 100);
         attackDelay = Mathf.Max(0.05f, attackDelay /(1+ playerStateManager.GetPlayerStateValue(PlayerState.AttackSpeed) / 100));
 
@@ -118,28 +119,4 @@ public class MeleeWeapon : Weapon,IGameStateListener
 
     }
 
-    public void GameStateChangedCallBack(GameState gameState)
-    {
-        switch (gameState)
-        {
-            case GameState.MENU:
-                gameStarted = false;
-                break;
-            case GameState.GAME:
-                gameStarted = true;
-                break;
-            case GameState.WAVETRANSITION:
-                gameStarted = false;
-                break;
-            case GameState.SHOP:
-                gameStarted = false;
-                break;
-            case GameState.GAMEOVER:
-                gameStarted= false;
-                break;
-            case GameState.WEAPON_SELECT:
-                gameStarted= false;
-                break;
-        }
-    }
 }

@@ -21,6 +21,6 @@ public class PlayerWeapons : MonoBehaviour
     }
     public void AddWeapon(WeaponDataSO selectedWeapons, int startWeaponLevel)
     {
-        weaponPositions[UnityEngine.Random.Range(0, weaponPositions.Length)].AssignWeapon(selectedWeapons.weaponPref);
+        weaponPositions[UnityEngine.Random.Range(0, weaponPositions.Length)].AssignWeapon(selectedWeapons.weaponPref,startWeaponLevel);
     }
 }

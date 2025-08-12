@@ -5,12 +5,12 @@ using UnityEngine;
 
 public class WeaponSelectionManager : MonoBehaviour,IGameStateListener
 {
-    [Header("Objects")]
+    [Header("Objects（其中weaponDatas表示会有几个选择的有等级的武器，并随机选择并随机分配）")]
     [SerializeField] private Transform containersParent;
     [SerializeField] private WeaponSelectionContainer_UI weaponSelectionContainerPrefab;
     [SerializeField] private WeaponDataSO [] weaponDatas;
-    [SerializeField] private WeaponDataSO selectedWeapon;
     [SerializeField] private PlayerWeapons playerWeapons;
+    [SerializeField] private WeaponDataSO selectedWeapon;
     private int startWeaponLevel;
 
     public void GameStateChangedCallBack(GameState gameState)
@@ -43,18 +43,18 @@ public class WeaponSelectionManager : MonoBehaviour,IGameStateListener
         WeaponSelectionContainer_UI container= Instantiate(weaponSelectionContainerPrefab, containersParent);
         WeaponDataSO randomWeaponData= weaponDatas[Random.Range(0, weaponDatas.Length)];
 
-        int level=UnityEngine.Random.Range(0,2);
-        startWeaponLevel = level;
+        int level=UnityEngine.Random.Range(0,4);
         container.Configure(randomWeaponData.WeaponSprite,randomWeaponData.WeaponName, level);
         container.Button.onClick.RemoveAllListeners();
         container.Button.onClick.AddListener(() =>
         {
-            WeaponSelectedCallBack(container,randomWeaponData);
+            WeaponSelectedCallBack(container,randomWeaponData, level);
         });
     }
-    private void WeaponSelectedCallBack(WeaponSelectionContainer_UI container, WeaponDataSO randomWeaponData)
+    private void WeaponSelectedCallBack(WeaponSelectionContainer_UI container, WeaponDataSO randomWeaponData,int level)
     {
         selectedWeapon = randomWeaponData;
+        startWeaponLevel = level;
         foreach (WeaponSelectionContainer_UI containerS in containersParent.GetComponentsInChildren<WeaponSelectionContainer_UI>())
         {
             if (containerS == container)

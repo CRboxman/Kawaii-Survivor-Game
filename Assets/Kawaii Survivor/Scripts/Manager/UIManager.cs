@@ -49,7 +49,7 @@ public class UIManager : MonoBehaviour, IGameStateListener
                 ShowPanel(shopPanel);
                 break;
             case GameState.WAVETRANSITION:
-                ShowPanel(waveTransitionPanel);
+                LeanTween.delayedCall(0.5f, () => { ShowPanel(waveTransitionPanel); });
                 break;
             case GameState.GAME:
                 ShowPanel(gamePanel);

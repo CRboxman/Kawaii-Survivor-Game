@@ -7,7 +7,7 @@ using UnityEngine;
 /// <summary>
 /// 管理玩家状态的脚本，负责统一触发所有实现了IPlayerStatesDependency接口的组件的UpdateStats方法来实现状态更新，外部可用AddPlayerState方法来添加或更新玩家状态值
 /// </summary>
-public class PlayerStateManager : MonoBehaviour
+public class PlayerStateManager : MonoBehaviour,IGameStateListener
 {
     [Header("Objects")]
     [SerializeField] private CharacterSO playerData;
@@ -33,6 +33,15 @@ public class PlayerStateManager : MonoBehaviour
     void Update()
     {
         
+    }
+    public void GameStateChangedCallBack(GameState gameState)
+    {
+        switch (gameState)
+        {
+            case GameState.GAME:
+                LeanTween.delayedCall(0.3f, () => { UpdatePlayerStats(); });
+                break;
+        }
     }
     /// <summary>
     /// 更新增加的数值，并在最后主动触发一下所有实现更新状态的IPlayerStatesDependency接口的UpdateStats方法
@@ -65,6 +74,11 @@ public class PlayerStateManager : MonoBehaviour
             playerStateslistener.UpdateStats(this);
         }
     }
+    /// <summary>
+    /// 得到玩家的属性值以及增加的属性值的总和
+    /// </summary>
+    /// <param name="nowState"></param>
+    /// <returns></returns>
     public float GetPlayerStateValue(PlayerState nowState)
     {
         float value = playerAddedStates[nowState]+ playerStates[nowState];
