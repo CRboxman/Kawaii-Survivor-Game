@@ -10,12 +10,12 @@ public abstract class Weapon : MonoBehaviour, IPlayerStatesDependency
     [field: SerializeField] public WeaponDataSO weaponData { get; private set; }
     [field: SerializeField] public int weaponLevel { get; private set; }
     [Header("Settings")]
-    [SerializeField] protected float range;
     [SerializeField] protected LayerMask enemyLayerMask;
     [SerializeField] protected float aimLerp;
+    [SerializeField][Range(0, 100)] protected float range;
     [Header("Attack")]
-    [SerializeField] protected float damage;
-    [SerializeField] protected float attackDelay;
+    [SerializeField][Range(0,1000)] protected float damage;
+    [SerializeField][Range(0.001f,5)] protected float attackDelay;
     [SerializeField] protected float attackTimer;
     [SerializeField][Range(0, 100)] protected float criticalChance;
     [SerializeField][Range(0,10)] protected float criticalPercent;
@@ -80,6 +80,10 @@ public abstract class Weapon : MonoBehaviour, IPlayerStatesDependency
             range = weaponData.GetStateValue(PlayerState.Range) * multiplier;
         }
     }
+    /// <summary>
+    /// 将传入的等级作为指定等级，并根据等级进行属性初始化，这个只是初始化了武器的基本信息，没有考虑玩家属性加成
+    /// </summary>
+    /// <param name="targetLevel"></param>
     public void UpgrateTo(int targetLevel)
     {
         weaponLevel = targetLevel;

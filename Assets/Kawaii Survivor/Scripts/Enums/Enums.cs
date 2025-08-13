@@ -42,4 +42,21 @@ public static class Enums
         }
         return stateName;
     }
+    public static string GetPlayerStateName(GameState gameState)
+    {
+        string stateName = "";
+        string stateNameString = gameState.ToString();
+        if (stateNameString.Length <= 0)
+            return "没有这个枚举玩家状态";
+
+        for (int i = 0; i < stateNameString.Length; i++)
+        {
+            if (i > 0 && char.IsUpper(stateNameString[i]))
+            {
+                stateName += "  ";
+            }
+            stateName += stateNameString[i];
+        }
+        return stateName;
+    }
 }

@@ -8,8 +8,10 @@ public class WeaponSelectionManager : MonoBehaviour,IGameStateListener
     [Header("Objects（其中weaponDatas表示会有几个选择的有等级的武器，并随机选择并随机分配）")]
     [SerializeField] private Transform containersParent;
     [SerializeField] private WeaponSelectionContainer_UI weaponSelectionContainerPrefab;
-    [SerializeField] private WeaponDataSO [] weaponDatas;
     [SerializeField] private PlayerWeapons playerWeapons;
+    [HorizontalLine]
+    [SerializeField] private int weaponCount;
+    [SerializeField] private WeaponDataSO [] weaponDatas;
     [SerializeField] private WeaponDataSO selectedWeapon;
     private int startWeaponLevel;
 
@@ -33,7 +35,7 @@ public class WeaponSelectionManager : MonoBehaviour,IGameStateListener
     private void ConfigureWeaponSelectionContainers()
     {
         containersParent.ClearChild();
-        for (int i = 0; i <weaponDatas.Length; i++)
+        for (int i = 0; i <weaponCount; i++)
         {
             GenerateWeaponContainer();
         }
@@ -42,9 +44,11 @@ public class WeaponSelectionManager : MonoBehaviour,IGameStateListener
     {
         WeaponSelectionContainer_UI container= Instantiate(weaponSelectionContainerPrefab, containersParent);
         WeaponDataSO randomWeaponData= weaponDatas[Random.Range(0, weaponDatas.Length)];
-
         int level=UnityEngine.Random.Range(0,4);
-        container.Configure(randomWeaponData.WeaponSprite,randomWeaponData.WeaponName, level);
+
+        
+        container.ConfigureWeaponSelection(randomWeaponData.WeaponSprite,randomWeaponData.WeaponName, level,randomWeaponData);
+
         container.Button.onClick.RemoveAllListeners();
         container.Button.onClick.AddListener(() =>
         {

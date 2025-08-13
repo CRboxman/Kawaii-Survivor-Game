@@ -51,7 +51,7 @@ namespace Tabsil.Mineral
 
         public void Remove(string key)
         {
-            // Remove the key totally if no icon
+            // Remove the key totally if no weaponIcon
 
             int indexToRemove = -1;
 
