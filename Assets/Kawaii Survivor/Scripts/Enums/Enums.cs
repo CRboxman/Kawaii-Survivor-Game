@@ -30,7 +30,7 @@ public static class Enums
         string stateName = "";
         string stateNameString= gameState.ToString();
         if(stateNameString.Length<=0)
-            return "没有这个枚举玩家状态";
+            return "??????????????";
 
         for (int i = 0; i < stateNameString.Length; i++)
         {
@@ -47,7 +47,7 @@ public static class Enums
         string stateName = "";
         string stateNameString = gameState.ToString();
         if (stateNameString.Length <= 0)
-            return "没有这个枚举玩家状态";
+            return "??????????????";
 
         for (int i = 0; i < stateNameString.Length; i++)
         {
